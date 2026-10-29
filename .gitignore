@@ -1,0 +1,22 @@
+# зависимости
+node_modules/
+
+# сборка Next.js
+.next/
+out/
+
+# статическая сборка превью (генерируется из исходников)
+preview/dist/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# окружение и деплой
+.env
+.env.*
+.vercel/
+
+# система
+.DS_Store
+Thumbs.db
