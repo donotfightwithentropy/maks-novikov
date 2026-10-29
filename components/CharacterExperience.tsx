@@ -610,16 +610,21 @@ export default function CharacterExperience() {
   const [cardHover, setCardHover] = useState<number | null>(null);
 
   /* размер окна решает и масштаб сцены, и то, помещаются ли колонки в ряд */
-  const [win, setWin] = useState(() => ({
-    w: typeof window === "undefined" ? STAGE_MAX : window.innerWidth,
-    h: typeof window === "undefined" ? STAGE_H : window.innerHeight,
-  }));
+  /* Первый рендер на клиенте обязан совпасть с серверным: во время
+     гидратации React не правит расхождения в разметке, и сцена осталась бы
+     в размере 1920×1080 с масштабом 1 — на экране уже она не помещается.
+     Поэтому стартуем с тех же констант и меряем окно кадром позже. */
+  const [win, setWin] = useState({ w: STAGE_MAX, h: STAGE_H });
   useEffect(() => {
     const measure = () =>
       setWin({ w: window.innerWidth, h: window.innerHeight });
-    measure();
+    /* кадр спустя — гидратация к этому моменту уже завершена */
+    const id = requestAnimationFrame(measure);
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("resize", measure);
+    };
   }, []);
   const vw = win.w;
   /* Сцена нарисована в кадре 1920×1080 и целиком вписывается в окно:
