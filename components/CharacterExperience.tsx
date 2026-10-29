@@ -13,7 +13,7 @@ import { CharacterText, AbilitiesText } from "@/components/CharacterText";
 // TODO: восстанавливается отдельным файлом (в бандле — `kE`), принимает { delay?, fade, rise }
 import AboutPanel from "@/components/Gallery";
 
-const MODEL_URL = "models/character.glb";
+const MODEL_URL = "/models/character.glb";
 
 // Макет Figma 1920x1080
 const DESIGN_W = 1920;
@@ -40,7 +40,7 @@ const EXPERIENCE: ExperienceRow[] = [
   {
     y: 220,
     h: 173,
-    sign: "sign-freelance.svg",
+    sign: "/sign-freelance.svg",
     sx: 1075.6,
     sy: 262.99,
     sw: 18.8,
@@ -53,7 +53,7 @@ const EXPERIENCE: ExperienceRow[] = [
   {
     y: 393,
     h: 153,
-    sign: "sign-4dev.svg",
+    sign: "/sign-4dev.svg",
     sx: 1075.47,
     sy: 435.8,
     sw: 19.06,
@@ -66,7 +66,7 @@ const EXPERIENCE: ExperienceRow[] = [
   {
     y: 546,
     h: 151,
-    sign: "sign-yandex.svg",
+    sign: "/sign-yandex.svg",
     sx: 1072.92,
     sy: 588.93,
     sw: 24.17,
@@ -79,7 +79,7 @@ const EXPERIENCE: ExperienceRow[] = [
   {
     y: 697,
     h: 143,
-    sign: "sign-ridero.svg",
+    sign: "/sign-ridero.svg",
     sx: 1074.93,
     sy: 739.93,
     sw: 20.14,
@@ -92,7 +92,7 @@ const EXPERIENCE: ExperienceRow[] = [
   {
     y: 840,
     h: 132,
-    sign: "sign-folio.svg",
+    sign: "/sign-folio.svg",
     sx: 1074.93,
     sy: 882.93,
     sw: 20.14,
@@ -210,7 +210,7 @@ const RAIL_VH = HOLD_BEFORE + RISE_VH + HOLD_AFTER;
 const RISE_START = HOLD_BEFORE / RAIL_VH;
 const RISE_END = (HOLD_BEFORE + RISE_VH) / RAIL_VH;
 
-const POSTER_SRC = "character-poster.jpg";
+const POSTER_SRC = "/character-poster.jpg";
 
 /** Максимальный поворот персонажа за курсором */
 const MAX_YAW = THREE.MathUtils.degToRad(40);
@@ -222,7 +222,7 @@ function CharacterFrame() {
   return (
     <>
       <img
-        src="char-art.svg"
+        src="/char-art.svg"
         alt=""
         aria-hidden
         className="block"
@@ -795,7 +795,7 @@ export default function CharacterExperience() {
                 }}
               >
                 <img
-                  src="abilities-art.svg"
+                  src="/abilities-art.svg"
                   alt=""
                   aria-hidden
                   className="block"

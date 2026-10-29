@@ -432,7 +432,7 @@ const MASTER_IMG_H = 164;
 const MASTER_CHIP_H = 26;
 const MASTER_CHIP_GAP = 10;
 const MASTER_H = MASTER_CHIP_H + MASTER_CHIP_GAP + MASTER_IMG_H;
-const MASTER_BANNER_SRC = "yan/master_banner.webp";
+const MASTER_BANNER_SRC = "/yan/master_banner.webp";
 const RESIZE_BOARD_NOTE =
   "Imagine that we have a Master banner and need to design all the resizes. We just need to get approval.";
 const MASTER_ID = "master";
@@ -677,7 +677,7 @@ function ResizeBoard() {
       {RESIZE_PACKS.map((pack, i) => {
         /* каждый пак гличит в момент собственного появления */
         const delay = `${i * 0.09}s`;
-        const art = `url(yan/packs/${pack.id}.webp)`;
+        const art = `url(/yan/packs/${pack.id}.webp)`;
         return (
           <div
             key={pack.id}
@@ -1274,7 +1274,7 @@ function ChatLine({
         }}
       >
         <img
-          src={m.right ? "yan/chat/lead.webp" : "yan/chat/designer.webp"}
+          src={m.right ? "/yan/chat/lead.webp" : "/yan/chat/designer.webp"}
           alt=""
           aria-hidden
           style={{
@@ -1570,7 +1570,7 @@ function BuilderBoard() {
         const isResult = item.id.startsWith("done_");
         // видна либо «до», либо «после» — в зависимости от состояния сборки
         const visible = isResult === built;
-        const art = `url(yan/builder/${item.id}.webp)`;
+        const art = `url(/yan/builder/${item.id}.webp)`;
         /* гличат только собранные баннеры и только в момент появления:
            0.35 с — пауза, пока разъезжаются исходные части */
         const resultIndex = BUILDER_RESULTS.findIndex((r) => r.id === item.id);
@@ -1959,7 +1959,7 @@ function PocketSection() {
       }}
     >
       <img
-        src={`pocket/shot_${n}.webp`}
+        src={`/pocket/shot_${n}.webp`}
         alt=""
         aria-hidden
         style={{
@@ -2015,7 +2015,7 @@ function PocketSection() {
           }}
         >
           <img
-            src="pocket/fin.webp"
+            src="/pocket/fin.webp"
             alt=""
             aria-hidden
             style={{
@@ -2042,7 +2042,7 @@ function RefundSection() {
   const shot = (n: number, delay: number) => (
     <FadeUp key={n} delay={delay} style={{ marginTop: n === 1 || n === 2 ? 0 : cq(REFUND.gap) }}>
       <img
-        src={`refund/shot_${n}.webp`}
+        src={`/refund/shot_${n}.webp`}
         alt=""
         aria-hidden
         style={{
@@ -2106,7 +2106,7 @@ function ThumbsSection() {
   const pic = (src: string, delay: number, top = 0) => (
     <FadeUp key={src} delay={delay} style={{ marginTop: cq(top) }}>
       <img
-        src={`thumbs/${src}.webp`}
+        src={`/thumbs/${src}.webp`}
         alt=""
         aria-hidden
         style={{
@@ -2232,7 +2232,7 @@ function PetSection() {
     <div key={n} style={{ width: cq(THUMBS.col) }}>
       <FadeUp delay={delay}>
         <img
-          src={`pet/shot_${n}.webp`}
+          src={`/pet/shot_${n}.webp`}
           alt=""
           aria-hidden
           style={{
@@ -2279,7 +2279,7 @@ function PetSection() {
         <div style={{ width: cq(THUMBS.col) }}>
           <FadeUp>
             <img
-              src="pet/shot_1.webp"
+              src="/pet/shot_1.webp"
               alt=""
               aria-hidden
               style={{
@@ -2367,7 +2367,7 @@ function Dev4Section() {
         {[1, 2].map((n) => (
           <FadeUp key={n} delay={(n - 1) * 0.1} style={{ marginTop: n === 1 ? 0 : cq(DEV4.gap) }}>
             <img
-              src={`dev4/shot_${n}.webp`}
+              src={`/dev4/shot_${n}.webp`}
               alt=""
               aria-hidden
               style={{
@@ -2454,13 +2454,13 @@ function GzaReveal() {
           objectFit: "cover",
         }}
       >
-        <source src="gza/reveal.webm" type="video/webm" />
-        <source src="gza/reveal.mp4" type="video/mp4" />
+        <source src="/gza/reveal.webm" type="video/webm" />
+        <source src="/gza/reveal.mp4" type="video/mp4" />
       </video>
 
       {/* когда проявление закончилось, подменяем кадр чёткой картинкой */}
       <img
-        src="gza/image_fin.webp"
+        src="/gza/image_fin.webp"
         alt="Gza app — final visual"
         style={{
           position: "absolute",
@@ -2474,7 +2474,7 @@ function GzaReveal() {
       />
 
       <motion.img
-        src="gza/phone_shade.webp"
+        src="/gza/phone_shade.webp"
         alt=""
         aria-hidden
         {...appear(GZA_DELAY.phone)}
@@ -2624,7 +2624,7 @@ function GzaBlock() {
         }}
       >
         <img
-          src="gza/logo_card.webp"
+          src="/gza/logo_card.webp"
           alt="Gza — application logo concept"
           style={{ display: "block", width: "100%", height: "auto" }}
         />
@@ -2641,7 +2641,7 @@ function GzaBlock() {
         }}
       >
         <img
-          src="icon_render_1.jpg"
+          src="/icon_render_1.jpg"
           alt="Gza app icon on the home screen"
           style={{
             display: "block",
@@ -2666,7 +2666,7 @@ function GzaBlock() {
           }}
         >
           <img
-            src={`gza/icon_${i + 1}.svg`}
+            src={`/gza/icon_${i + 1}.svg`}
             alt=""
             aria-hidden
             style={{ display: "block", width: "100%", height: "100%" }}
@@ -2685,7 +2685,7 @@ function GzaBlock() {
         }}
       >
         <img
-          src="gza/cover.webp"
+          src="/gza/cover.webp"
           alt="Gza app — follow the path less mapped"
           style={{
             display: "block",
@@ -2714,7 +2714,7 @@ function GzaBlock() {
           }}
         >
           <img
-            src={`gza/phone_${i + 1}.webp`}
+            src={`/gza/phone_${i + 1}.webp`}
             alt=""
             aria-hidden
             style={{ display: "block", width: "100%", height: "100%", objectFit: "contain" }}
@@ -3393,7 +3393,7 @@ repeat step 2 and 3`}
           {[1, 2, 3].map((n, i) => (
             <motion.img
               key={n}
-              src={`yan/exp_${n}.webp`}
+              src={`/yan/exp_${n}.webp`}
               alt=""
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -3463,7 +3463,7 @@ repeat step 2 and 3`}
             {/* токены и бейджи — слева от текста про них */}
             <FadeUp delay={0.3} style={{ marginTop: cq(TOKENS_TOP) }}>
               <img
-                src="yan/tokens.webp"
+                src="/yan/tokens.webp"
                 alt=""
                 aria-hidden
                 style={{
@@ -3554,7 +3554,7 @@ repeat step 2 and 3`}
               {DESIGN_PERFORMS.title}
             </FadeUp>
             <motion.img
-              src="yan/grand_slam.webp"
+              src="/yan/grand_slam.webp"
               alt=""
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -3620,7 +3620,7 @@ repeat step 2 and 3`}
         {[1, 2, 3].map((n) => (
           <motion.img
             key={n}
-            src={`yan/banners_${n}.webp`}
+            src={`/yan/banners_${n}.webp`}
             alt=""
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -3637,7 +3637,7 @@ repeat step 2 and 3`}
         ))}
 
         <motion.img
-          src="yan/banners_fin.webp"
+          src="/yan/banners_fin.webp"
           alt=""
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -3704,7 +3704,7 @@ function BannerWall() {
                 }}
               >
                 <img
-                  src={`yanban/b${String(n).padStart(3, "0")}.webp`}
+                  src={`/yanban/b${String(n).padStart(3, "0")}.webp`}
                   alt=""
                   aria-hidden
                   loading="lazy"
@@ -3761,12 +3761,12 @@ const GUIDE_COL_W = (1440 - GUIDE_GAP * (GUIDE_COLS - 1)) / GUIDE_COLS;
 /** Развороты гайдлайна: имя файла и натуральная высота при ширине 1920 */
 const GUIDE_SHOTS = (
   [
-    ["nuetel_guide_1.jpg", 2872],
-    ["nuetel_guide_2.jpg", 4830],
-    ["nuetel_guide_3.jpg", 4074],
-    ["nuetel_guide_4.jpg", 4760],
-    ["nuetel_guide_6.jpg", 3934],
-    ["nuetel_guide_5.jpg", 4202],
+    ["/nuetel_guide_1.jpg", 2872],
+    ["/nuetel_guide_2.jpg", 4830],
+    ["/nuetel_guide_3.jpg", 4074],
+    ["/nuetel_guide_4.jpg", 4760],
+    ["/nuetel_guide_6.jpg", 3934],
+    ["/nuetel_guide_5.jpg", 4202],
   ] as [string, number][]
 ).map(([src, h]) => ({ src, h: (GUIDE_COL_W * h) / 1920 }));
 
@@ -3832,38 +3832,38 @@ const LOGO_STORY = {
 
 /** Кадры «пролистывания» сайта на ноутбуке */
 const LAPTOP_FRAMES = [
-  "laptop/laptop_1.webp",
-  "laptop/laptop_2.webp",
-  "laptop/laptop_3.webp",
-  "laptop/laptop_4.webp",
-  "laptop/laptop_5.webp",
-  "laptop/laptop_6.webp",
-  "laptop/laptop_7.webp",
-  "laptop/laptop_8.webp",
-  "laptop/laptop_9.webp",
-  "laptop/laptop_10.webp",
-  "laptop/laptop_11.webp",
-  "laptop/laptop_12.webp",
-  "laptop/laptop_13.webp",
-  "laptop/laptop_14.webp",
-  "laptop/laptop_15.webp",
-  "laptop/laptop_16.webp",
+  "/laptop/laptop_1.webp",
+  "/laptop/laptop_2.webp",
+  "/laptop/laptop_3.webp",
+  "/laptop/laptop_4.webp",
+  "/laptop/laptop_5.webp",
+  "/laptop/laptop_6.webp",
+  "/laptop/laptop_7.webp",
+  "/laptop/laptop_8.webp",
+  "/laptop/laptop_9.webp",
+  "/laptop/laptop_10.webp",
+  "/laptop/laptop_11.webp",
+  "/laptop/laptop_12.webp",
+  "/laptop/laptop_13.webp",
+  "/laptop/laptop_14.webp",
+  "/laptop/laptop_15.webp",
+  "/laptop/laptop_16.webp",
 ];
 
 /** Высота мозаики рекламных материалов */
 const ADV_GRID_H = 1840;
 
 const ADV_BANNERS = [
-  { src: "banners/banner_parrot.jpg", x: 0, y: 0, w: 343.5, h: 544 },
-  { src: "banners/banner_abstract.jpg", x: 365.5, y: 0, w: 343.5, h: 544 },
-  { src: "banners/banner_icons.jpg", x: 731, y: 0, w: 351, h: 144 },
-  { src: "banners/banner_screen.jpg", x: 1104, y: 0, w: 336, h: 344 },
-  { src: "banners/banner_cloud.jpg", x: 731, y: 166, w: 351, h: 543 },
-  { src: "banners/banner_3d.jpg", x: 1104, y: 366, w: 336, h: 343 },
-  { src: "banners/banner_hero.jpg", x: 0, y: 566, w: 709, h: 708 },
-  { src: "banners/banner_adv.jpg", x: 731, y: 731, w: 709, h: 543 },
-  { src: "banners/banner_poster.jpg", x: 0, y: 1296, w: 1066, h: 544 },
-  { src: "banners/banner_siprout.jpg", x: 1088, y: 1296, w: 352, h: 544 },
+  { src: "/banners/banner_parrot.jpg", x: 0, y: 0, w: 343.5, h: 544 },
+  { src: "/banners/banner_abstract.jpg", x: 365.5, y: 0, w: 343.5, h: 544 },
+  { src: "/banners/banner_icons.jpg", x: 731, y: 0, w: 351, h: 144 },
+  { src: "/banners/banner_screen.jpg", x: 1104, y: 0, w: 336, h: 344 },
+  { src: "/banners/banner_cloud.jpg", x: 731, y: 166, w: 351, h: 543 },
+  { src: "/banners/banner_3d.jpg", x: 1104, y: 366, w: 336, h: 343 },
+  { src: "/banners/banner_hero.jpg", x: 0, y: 566, w: 709, h: 708 },
+  { src: "/banners/banner_adv.jpg", x: 731, y: 731, w: 709, h: 543 },
+  { src: "/banners/banner_poster.jpg", x: 0, y: 1296, w: 1066, h: 544 },
+  { src: "/banners/banner_siprout.jpg", x: 1088, y: 1296, w: 352, h: 544 },
 ];
 
 const ADV_CAMPAIGN = {
@@ -3885,16 +3885,16 @@ const EASE_PHONE: [number, number, number, number] = [0.42, 0, 0.25, 1];
 const PHONE_SHOT_AR = 2e3 / 888;
 
 const PHONE_FRAMES = [
-  "phones/nuetel_phone_2.webp",
-  "phones/nuetel_phone_3.webp",
-  "phones/nuetel_phone_4.webp",
-  "phones/nuetel_phone_5.webp",
+  "/phones/nuetel_phone_2.webp",
+  "/phones/nuetel_phone_3.webp",
+  "/phones/nuetel_phone_4.webp",
+  "/phones/nuetel_phone_5.webp",
 ];
 
 /** Всё, что занимает высоту над кадром телефонов в липком экране */
 const PHONE_CHROME_H = CAMPAIGN_PAD_TOP + 1 + (71 - 8.14) + 128 + 32;
 
-const FINAL_SHOT_IMG = { src: "nuetel_final.webp", ar: 3840 / 2160 };
+const FINAL_SHOT_IMG = { src: "/nuetel_final.webp", ar: 3840 / 2160 };
 const FINAL_PAD_TOP = 72;
 
 /* Коллаж «от скетча к системе» */
@@ -3919,7 +3919,7 @@ const GRID_CELL_H = (GRID_CELL_W * 1080) / 1920;
 const GRID_H = GRID_COLS * GRID_CELL_H + (GRID_COLS - 1) * SKETCH_GAP;
 const GRID_TOP = SKETCH_ROW_H + SKETCH_GAP;
 const GRID_SHOTS = Array.from({ length: 9 }, (_, i) => ({
-  src: `sketch/frame_${i + 1}.webp`,
+  src: `/sketch/frame_${i + 1}.webp`,
   x: (i % GRID_COLS) * (GRID_CELL_W + SKETCH_GAP),
   y: GRID_TOP + Math.floor(i / GRID_COLS) * (GRID_CELL_H + SKETCH_GAP),
   w: GRID_CELL_W,
@@ -3929,21 +3929,21 @@ const WIDE_TOP = GRID_TOP + GRID_H + SKETCH_GAP;
 
 const SKETCH_SHOTS = [
   {
-    src: "sketch/sketch_1.webp",
+    src: "/sketch/sketch_1.webp",
     x: 0,
     y: 0,
     w: SKETCH_COL_W,
     h: (SKETCH_COL_W * 480) / 752,
   },
   {
-    src: "sketch/sketch_2.webp",
+    src: "/sketch/sketch_2.webp",
     x: 0,
     y: (SKETCH_COL_W * 480) / 752 + SKETCH_V_GAP,
     w: SKETCH_COL_W,
     h: (SKETCH_COL_W * 650) / 752,
   },
   {
-    src: "sketch/sketch_3.webp",
+    src: "/sketch/sketch_3.webp",
     x: 0,
     y: SKETCH_ROW_H - (SKETCH_COL_W * 406) / 752,
     w: SKETCH_COL_W,
@@ -3951,7 +3951,7 @@ const SKETCH_SHOTS = [
   },
   {
     /* один кадр вместо двух баннеров: кадрируется по ширине слота */
-    src: "sketch/laptop_tablet.webp",
+    src: "/sketch/laptop_tablet.webp",
     x: SKETCH_COL_W + SKETCH_GAP,
     y: 0,
     w: 1440 - SKETCH_COL_W - SKETCH_GAP,
@@ -3959,7 +3959,7 @@ const SKETCH_SHOTS = [
   },
   ...GRID_SHOTS,
   {
-    src: "sketch/final_wide.webp",
+    src: "/sketch/final_wide.webp",
     x: 0,
     y: WIDE_TOP,
     w: 1440,
@@ -4316,24 +4316,24 @@ const LBOARD_SIDE = (1440 - 3 * LBOARD_COL_W) / 4;
 const LANDINGS = [
   {
     id: "samsung",
-    src: "yan/landings/samsung.webp",
-    done: "yan/landings/samsung-new.webp",
+    src: "/yan/landings/samsung.webp",
+    done: "/yan/landings/samsung-new.webp",
     task: "Task 1.",
     note: "We have vendor’s visual concepts here. Adapt it for market platform.",
     label: "Adapt",
   },
   {
     id: "fashion",
-    src: "yan/landings/fashion.webp",
-    done: "yan/landings/fashion-new.webp",
+    src: "/yan/landings/fashion.webp",
+    done: "/yan/landings/fashion-new.webp",
     task: "Task 2.",
     note: "I developed my own visual concept. Now we need to create landing from scratch.",
     label: "Create",
   },
   {
     id: "delonghi",
-    src: "yan/landings/delonghi.webp",
-    done: "yan/landings/delonghi-new.webp",
+    src: "/yan/landings/delonghi.webp",
+    done: "/yan/landings/delonghi-new.webp",
     task: "Task 3.",
     note: "I’ve already completed landing but now we need to update some info in it.",
     label: "Update",
@@ -5297,11 +5297,11 @@ function MShot({
 
 /** Доля кадра, занятая самим телефоном: x, y, ширина, высота (0…1) */
 const PHONE_CROPS: [string, number, number, number, number][] = [
-  ["phones/nuetel_phone_1.webp", 0.0265, 0.0574, 0.202, 0.857],
-  ["phones/nuetel_phone_2.webp", 0.1995, 0.0541, 0.196, 0.8862],
-  ["phones/nuetel_phone_3.webp", 0.3845, 0.045, 0.1885, 0.9178],
-  ["phones/nuetel_phone_4.webp", 0.5845, 0.0293, 0.1795, 0.9504],
-  ["phones/nuetel_phone_5.webp", 0.7985, 0.0068, 0.169, 0.9864],
+  ["/phones/nuetel_phone_1.webp", 0.0265, 0.0574, 0.202, 0.857],
+  ["/phones/nuetel_phone_2.webp", 0.1995, 0.0541, 0.196, 0.8862],
+  ["/phones/nuetel_phone_3.webp", 0.3845, 0.045, 0.1885, 0.9178],
+  ["/phones/nuetel_phone_4.webp", 0.5845, 0.0293, 0.1795, 0.9504],
+  ["/phones/nuetel_phone_5.webp", 0.7985, 0.0068, 0.169, 0.9864],
 ];
 
 /** Кадр кампании, обрезанный по самому телефону */
@@ -5687,7 +5687,7 @@ function NuetelMobile({
       </MStack>
 
       <MStack style={{ paddingTop: 32 }}>
-        <MShot src="nuetel_phone.webp" />
+        <MShot src="/nuetel_phone.webp" />
       </MStack>
 
       {/* шаги истории */}
@@ -5758,7 +5758,7 @@ function NuetelMobile({
         }}
       >
         <img
-          src="nuetel_about.jpg"
+          src="/nuetel_about.jpg"
           alt=""
           aria-hidden
           style={{
@@ -5796,7 +5796,7 @@ function NuetelMobile({
           </MBody>
         ))}
         <img
-          src="nuetel_logo.svg"
+          src="/nuetel_logo.svg"
           alt=""
           aria-hidden
           style={{
@@ -5927,9 +5927,9 @@ function NuetelMobile({
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           {(
             [
-              ["sketch/sketch_1.webp", 752 / 480],
-              ["sketch/sketch_2.webp", 752 / 650],
-              ["sketch/sketch_3.webp", 752 / 406],
+              ["/sketch/sketch_1.webp", 752 / 480],
+              ["/sketch/sketch_2.webp", 752 / 650],
+              ["/sketch/sketch_3.webp", 752 / 406],
             ] as [string, number][]
           ).map(([src, ar]) => (
             <div key={src} style={{ flex: "1 1 0", minWidth: 0 }}>
@@ -5937,7 +5937,7 @@ function NuetelMobile({
             </div>
           ))}
         </div>
-        <MShot src="sketch/laptop_tablet.webp" radius={8} />
+        <MShot src="/sketch/laptop_tablet.webp" radius={8} />
         <div
           style={{
             display: "grid",
@@ -5949,7 +5949,7 @@ function NuetelMobile({
             <MShot key={s.src} src={s.src} ar={16 / 9} radius={8} />
           ))}
         </div>
-        <MShot src="sketch/final_wide.webp" radius={8} />
+        <MShot src="/sketch/final_wide.webp" radius={8} />
       </MStack>
 
       <MFooter onBack={onBack} onContacts={onContacts} />
@@ -6100,7 +6100,7 @@ function YandexMobile({
                   }}
                 >
                   <img
-                    src={`yanban/b${String(n).padStart(3, "0")}.webp`}
+                    src={`/yanban/b${String(n).padStart(3, "0")}.webp`}
                     alt=""
                     aria-hidden
                     loading="lazy"
@@ -6164,7 +6164,7 @@ function YandexMobile({
         <div style={{ display: "flex", gap: 8 }}>
           {[1, 2, 3].map((n) => (
             <div key={n} style={{ flex: "1 1 0", minWidth: 0 }}>
-              <MShot src={`yan/exp_${n}.webp`} ar={1} radius={6} />
+              <MShot src={`/yan/exp_${n}.webp`} ar={1} radius={6} />
             </div>
           ))}
         </div>
@@ -6197,14 +6197,14 @@ function YandexMobile({
             {p}
           </MBody>
         ))}
-        <MShot src="yan/tokens.webp" radius={8} />
+        <MShot src="/yan/tokens.webp" radius={8} />
       </MStack>
 
       {/* дизайн, который работает */}
       <MStack gap={18} style={{ paddingTop: M.gap }}>
         <MRule />
         <MHead>{DESIGN_PERFORMS.title.replace(/\n/g, " ")}</MHead>
-        <MShot src="yan/grand_slam.webp" ar={GRAND_SLAM_AR} radius={8} />
+        <MShot src="/yan/grand_slam.webp" ar={GRAND_SLAM_AR} radius={8} />
         {DESIGN_PERFORMS.text.map((p, i) => (
           <MBody key={i} delay={i * 0.05}>
             {p}
@@ -6233,9 +6233,9 @@ function YandexMobile({
       {/* подборки баннеров — тап открывает крупно */}
       <MStack gap={12} style={{ paddingTop: 32 }}>
         {[1, 2, 3].map((n) => (
-          <MZoomShot key={n} src={`yan/banners_${n}.webp`} />
+          <MZoomShot key={n} src={`/yan/banners_${n}.webp`} />
         ))}
-        <MZoomShot src="yan/banners_fin.webp" />
+        <MZoomShot src="/yan/banners_fin.webp" />
       </MStack>
 
       <MFooter onBack={onBack} onContacts={onContacts} />
@@ -6592,10 +6592,10 @@ function AdditionalMobile({
       <MSection title={outro?.title ?? "Gza navigation app concept"} text={outro?.text}>
         <div style={{ display: "flex", gap: 10, paddingTop: 6 }}>
           <div style={{ flex: "1 1 0", minWidth: 0 }}>
-            <MShot src="gza/logo_card.webp" ar={413.38 / 383.4} />
+            <MShot src="/gza/logo_card.webp" ar={413.38 / 383.4} />
           </div>
           <div style={{ flex: "1 1 0", minWidth: 0 }}>
-            <MShot src="icon_render_1.jpg" ar={418.29 / 383.08} />
+            <MShot src="/icon_render_1.jpg" ar={418.29 / 383.08} />
           </div>
         </div>
         {/* иконки приложения в ряд */}
@@ -6610,7 +6610,7 @@ function AdditionalMobile({
           {Array.from({ length: 8 }, (_, i) => (
             <img
               key={i}
-              src={`gza/icon_${i + 1}.svg`}
+              src={`/gza/icon_${i + 1}.svg`}
               alt=""
               aria-hidden
               style={{ flex: "1 1 0", minWidth: 0, display: "block" }}
@@ -6619,7 +6619,7 @@ function AdditionalMobile({
         </div>
         {/* обложка — отдельным блоком под иконками */}
         <div style={{ paddingTop: 6 }}>
-          <MShot src="gza/cover.webp" ar={562 / 501} />
+          <MShot src="/gza/cover.webp" ar={562 / 501} />
         </div>
         {/* экраны приложения: два в ряд, без синей линии */}
         <div
@@ -6631,11 +6631,11 @@ function AdditionalMobile({
           }}
         >
           {[1, 2, 3, 4].map((n) => (
-            <MShot key={n} src={`gza/phone_${n}.webp`} ar={307 / 620} />
+            <MShot key={n} src={`/gza/phone_${n}.webp`} ar={307 / 620} />
           ))}
         </div>
         <div style={{ paddingTop: 6 }}>
-          <MShot src="gza/image_fin.webp" />
+          <MShot src="/gza/image_fin.webp" />
         </div>
       </MSection>
 
@@ -6656,7 +6656,7 @@ function AdditionalMobile({
           }}
         >
           {[1, 2].map((n) => (
-            <MZoomShot key={n} src={`dev4/shot_${n}.webp`} />
+            <MZoomShot key={n} src={`/dev4/shot_${n}.webp`} />
           ))}
         </div>
       </MSection>
@@ -6679,10 +6679,10 @@ function AdditionalMobile({
         >
           {[1, 2, 3, 4, 5].map((n) => (
             <div key={n} style={{ width: "74%" }}>
-              <MZoomShot src={`pocket/shot_${n}.webp`} />
+              <MZoomShot src={`/pocket/shot_${n}.webp`} />
             </div>
           ))}
-          <MZoomShot src="pocket/fin.webp" />
+          <MZoomShot src="/pocket/fin.webp" />
         </div>
       </MSection>
 
@@ -6702,7 +6702,7 @@ function AdditionalMobile({
           }}
         >
           {[1, 2, 3, 4].map((n) => (
-            <MZoomShot key={n} src={`refund/shot_${n}.webp`} />
+            <MZoomShot key={n} src={`/refund/shot_${n}.webp`} />
           ))}
         </div>
       </MSection>
@@ -6724,7 +6724,7 @@ function AdditionalMobile({
         >
           {["thumb_1", "thumb_2", "thumb_3", "task_1", "task_2", "task_3", "task_4"].map(
             (s) => (
-              <MZoomShot key={s} src={`thumbs/${s}.webp`} />
+              <MZoomShot key={s} src={`/thumbs/${s}.webp`} />
             ),
           )}
         </div>
@@ -6747,7 +6747,7 @@ function AdditionalMobile({
           }}
         >
           {[1, 2].map((n) => (
-            <MZoomShot key={n} src={`pet/shot_${n}.webp`} />
+            <MZoomShot key={n} src={`/pet/shot_${n}.webp`} />
           ))}
         </div>
       </MSection>
@@ -6802,7 +6802,7 @@ export default function ProjectView({
   title,
   tagline,
   subtitle,
-  hero = "nuetel_hero.jpg",
+  hero = "/nuetel_hero.jpg",
   titleSize = 96,
   heroInk = "#fff",
   heroRuleFull = false,
@@ -7256,7 +7256,7 @@ export default function ProjectView({
                 </FadeUp>
               ))}
               <img
-                src="nuetel_phone.webp"
+                src="/nuetel_phone.webp"
                 alt=""
                 aria-hidden
                 style={{
@@ -7676,7 +7676,7 @@ export default function ProjectView({
             }}
           >
             <motion.img
-              src="nuetel_about.jpg"
+              src="/nuetel_about.jpg"
               alt=""
               aria-hidden
               style={{
@@ -7793,7 +7793,7 @@ export default function ProjectView({
                 </FadeUp>
               ))}
               <img
-                src="nuetel_logo.svg"
+                src="/nuetel_logo.svg"
                 alt="Nuetel"
                 style={{
                   position: "absolute",
@@ -8210,7 +8210,7 @@ function AdvCampaign() {
               }}
             >
               <img
-                src="phones/nuetel_phone_1.webp"
+                src="/phones/nuetel_phone_1.webp"
                 alt=""
                 aria-hidden
                 style={{

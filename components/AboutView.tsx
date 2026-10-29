@@ -95,27 +95,27 @@ const FACT = { kicker: 19, kickerAlt: 15, num: 70, text: 131, card: 70, button: 
 /** кадры 3D-проектов: первый подставляется в карточку, все шесть — в галерею */
 const PHOTOS_3D = Array.from(
   { length: 7 },
-  (_, i) => `about/3d/photo_${i + 1}.webp`,
+  (_, i) => `/about/3d/photo_${i + 1}.webp`,
 );
 
 const PHOTOS_BOOK = Array.from(
   { length: 4 },
-  (_, i) => `about/book/photo_${i + 1}.webp`,
+  (_, i) => `/about/book/photo_${i + 1}.webp`,
 );
 /* шестой кадр из галереи убран — сразу после пятого идёт седьмой */
 const PHOTOS_SKETCHES = [1, 2, 3, 4, 5, 7].map(
-  (n) => `about/sketches/photo_${n}.webp`,
+  (n) => `/about/sketches/photo_${n}.webp`,
 );
 
-const TATLER_PREVIEW = "about/tatler/preview.webp";
+const TATLER_PREVIEW = "/about/tatler/preview.webp";
 const PHOTOS_TATLER = Array.from(
   { length: 2 },
-  (_, i) => `about/tatler/photo_${i + 1}.webp`,
+  (_, i) => `/about/tatler/photo_${i + 1}.webp`,
 );
 
 const PHOTOS_PHOTO = Array.from(
   { length: 9 },
-  (_, i) => `about/photo/photo_${i + 1}.webp`,
+  (_, i) => `/about/photo/photo_${i + 1}.webp`,
 );
 
 /** цветовой фильтр поверх снимков — как на панно главной страницы */
@@ -858,7 +858,7 @@ const FACT_DATA: FactData[] = [
             kicker: "Art education",
             textW: 328,
             card: "right",
-            logo: { src: "about/usaaa.svg", ...LOGO },
+            logo: { src: "/about/usaaa.svg", ...LOGO },
             text: (
               <>
                 I have an art background and a degree in Urban Planning. I
@@ -1312,7 +1312,7 @@ export default function AboutView() {
               }}
             >
               <img
-                src="about/me.webp"
+                src="/about/me.webp"
                 alt="Maks during a trip to India"
                 style={{
                   width: "100%",
@@ -1503,7 +1503,7 @@ export default function AboutView() {
             style={{ position: "absolute", inset: 0, clipPath: photoClip, overflow: "hidden" }}
           >
             <motion.img
-              src="about/me.webp"
+              src="/about/me.webp"
               alt="Maks during a trip to India"
               style={{
                 position: "absolute",

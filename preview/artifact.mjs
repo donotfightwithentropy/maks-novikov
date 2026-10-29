@@ -10,6 +10,25 @@ const dist = join(root, "preview", "dist");
 const css = readFileSync(join(dist, "bundle.css"), "utf8");
 let js = readFileSync(join(dist, "bundle.js"), "utf8");
 
+/* В артефакте страница живёт не в корне домена, поэтому абсолютные пути
+   к ассетам (нужные Next.js на реальном сайте) здесь делаем относительными */
+const EXT = "webp|jpg|jpeg|png|svg|mp4|webm|glb";
+/* обычные строки: "/yan/tokens.webp" */
+js = js.replace(
+  new RegExp(`"\\/((?:[A-Za-z0-9_\\-]+\\/)*[A-Za-z0-9_\\-.]+\\.(?:${EXT}))"`, "g"),
+  '"$1"',
+);
+/* шаблонные строки: `/yanban/b${n}.webp` */
+js = js.replace(
+  new RegExp("`\\/((?:[^`\\\\]|\\\\.)*?\\.(?:" + EXT + "))`", "g"),
+  "`$1`",
+);
+/* фоны: url(/yan/packs/${id}.webp) */
+js = js.replace(
+  new RegExp("url\\(\\/((?:[A-Za-z0-9_\\-]+\\/)+)", "g"),
+  "url($1",
+);
+
 /* .glb артефакт отдавать отдельным файлом не умеет — инлайним модели data-URI,
    загрузчики в NuetelScene и CharacterExperience такую ветку поддерживают */
 for (const name of ["character", "nuetel-keyboard"]) {

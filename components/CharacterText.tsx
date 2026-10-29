@@ -260,9 +260,9 @@ const TECH_RULE = { y: 792, from: 240, w: 429 };
 
 /** кадры аватара под каждую способность, координаты кадра персонажа */
 const AVATARS = [
-  { src: "avatar-wink.webp", top: 66, h: 392.72 },
-  { src: "avatar-cry.webp", top: 84, h: 374.72 },
-  { src: "avatar-coffee.webp", top: 84, h: 374.72 },
+  { src: "/avatar-wink.webp", top: 66, h: 392.72 },
+  { src: "/avatar-cry.webp", top: 84, h: 374.72 },
+  { src: "/avatar-coffee.webp", top: 84, h: 374.72 },
 ];
 
 /** зона аватара, по наведению на которую персонаж подмигивает */
@@ -721,7 +721,7 @@ function SkillsList() {
                 </span>
               </motion.div>
               <motion.img
-                src="cat-pet.svg"
+                src="/cat-pet.svg"
                 alt=""
                 aria-hidden
                 draggable={false}

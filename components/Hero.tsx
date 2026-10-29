@@ -80,8 +80,8 @@ export function Hero() {
             transition={{ delay: 1.1, duration: 1.9, ease: EASE_OUT }}
           >
             <HeroImage
-              src="hero.jpg"
-              mobileSrc="hero-mobile.jpg"
+              src="/hero.jpg"
+              mobileSrc="/hero-mobile.jpg"
               focus={[0.5, 0.5]}
               mobileFocus={[0.5, 0.3]}
               className="absolute inset-0"
@@ -130,7 +130,7 @@ export function Hero() {
                   }}
                 >
                   <img
-                    src="icons.svg"
+                    src="/icons.svg"
                     alt="Adobe Creative Cloud, Photoshop, Figma, Blender, Framer"
                     className="block w-full"
                   />

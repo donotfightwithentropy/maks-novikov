@@ -92,20 +92,20 @@ const CARDS = [
   {
     y: 579,
     label: "Pet the cat",
-    base: "card-base-1.svg",
-    text: "card-text-1.svg",
+    base: "/card-base-1.svg",
+    text: "/card-text-1.svg",
   },
   {
     y: 723,
     label: "Battle cry",
-    base: "card-base-2.svg",
-    text: "card-text-2.svg",
+    base: "/card-base-2.svg",
+    text: "/card-text-2.svg",
   },
   {
     y: 867,
     label: "Cup of coffee",
-    base: "card-base-3.svg",
-    text: "card-text-3.svg",
+    base: "/card-base-3.svg",
+    text: "/card-text-3.svg",
   },
 ];
 
@@ -169,10 +169,10 @@ const STATIC_BORDER_STROKES = BORDER_STROKES.slice(3);
 
 /** Иконки навыков: обычное состояние и «кошачье» */
 const ICON_FRAMES = [
-  { base: "icon-1.svg", cat: "cat-1.svg" },
-  { base: "icon-2.svg", cat: "cat-2.svg" },
-  { base: "icon-3.svg", cat: "cat-3.svg" },
-  { base: "icon-4.svg", cat: "cat-4.svg" },
+  { base: "/icon-1.svg", cat: "/cat-1.svg" },
+  { base: "/icon-2.svg", cat: "/cat-2.svg" },
+  { base: "/icon-3.svg", cat: "/cat-3.svg" },
+  { base: "/icon-4.svg", cat: "/cat-4.svg" },
 ];
 
 /** Шаг задержки при перелистывании иконок */
@@ -316,13 +316,13 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
       className="@container relative block w-full lg:absolute lg:inset-y-0 lg:left-0 lg:w-[66.667%] lg:translate-x-[max(20px,calc(120px-6.72vw))]"
     >
       <img
-        src="panel-top.svg"
+        src="/panel-top.svg"
         alt="Maks Novikov — character panel"
         className="block h-full w-full object-contain"
       />
 
       <motion.img
-        src="panel-helmet.svg"
+        src="/panel-helmet.svg"
         data-frame="helmet"
         style={{ willChange: "opacity" }}
         alt=""
@@ -333,7 +333,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
       />
 
       <motion.img
-        src="panel-coffee.svg"
+        src="/panel-coffee.svg"
         data-frame="coffee"
         style={{ willChange: "opacity" }}
         alt=""
@@ -417,7 +417,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
       </svg>
 
       <motion.img
-        src="panel-wink.svg"
+        src="/panel-wink.svg"
         alt=""
         aria-hidden
         className="pointer-events-none absolute inset-0 block h-full w-full object-contain"
@@ -443,7 +443,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
         style={{ transform: `translateY(${cqw(-LOWER_SHIFT_Y)})` }}
       >
         <img
-          src="panel-lower.svg"
+          src="/panel-lower.svg"
           alt=""
           aria-hidden
           className="block h-full w-full object-contain"
@@ -513,7 +513,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
         className="pointer-events-none absolute inset-0 max-lg:!opacity-100"
       >
         <img
-          src="panel-fade.svg"
+          src="/panel-fade.svg"
           alt=""
           aria-hidden
           className="block h-full w-full object-contain"
@@ -857,7 +857,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
           }}
         >
           <img
-            src="panel-rise.svg"
+            src="/panel-rise.svg"
             alt=""
             aria-hidden
             className="pointer-events-none block h-full w-full object-contain"

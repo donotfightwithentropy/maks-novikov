@@ -89,36 +89,36 @@ type TileMedia = {
 };
 
 const TILE_MEDIA: Record<number, TileMedia> = {
-  1: { frames: ["icon_render_1.jpg"] },
+  1: { frames: ["/icon_render_1.jpg"] },
   2: {
-    frames: ["tavern_1.jpg", "tavern_2.jpg", "tavern_3.jpg", "tavern_4.jpg"],
+    frames: ["/tavern_1.jpg", "/tavern_2.jpg", "/tavern_3.jpg", "/tavern_4.jpg"],
     interval: 7e3,
   },
   3: {
-    frames: ["photostudio_1.jpg", "photostudio_2.jpg", "photostudio_3.jpg"],
+    frames: ["/photostudio_1.jpg", "/photostudio_2.jpg", "/photostudio_3.jpg"],
     interval: 1e4,
     mode: "curtain",
   },
   4: {
-    frames: ["adv_1.jpg", "adv_2.jpg", "adv_3.jpg", "adv_4.jpg"],
+    frames: ["/adv_1.jpg", "/adv_2.jpg", "/adv_3.jpg", "/adv_4.jpg"],
     interval: 5500 + SLIDE_MS,
     mode: "slide",
   },
   5: {
-    frames: ["banners_1.jpg", "banners_2.jpg", "banners_3.jpg"],
+    frames: ["/banners_1.jpg", "/banners_2.jpg", "/banners_3.jpg"],
     interval: 9e3,
   },
   6: {
-    frames: ["landing_1.jpg", "landing_2.jpg", "landing_3.jpg", "landing_4.jpg"],
+    frames: ["/landing_1.jpg", "/landing_2.jpg", "/landing_3.jpg", "/landing_4.jpg"],
     interval: 12e3,
   },
   7: {
-    frames: ["deloghi_1.jpg", "deloghi_2.jpg", "deloghi_3.jpg", "deloghi_4.jpg"],
+    frames: ["/deloghi_1.jpg", "/deloghi_2.jpg", "/deloghi_3.jpg", "/deloghi_4.jpg"],
     interval: 5e3,
   },
-  8: { frames: ["3d_1.jpg", "3d_2.jpg", "3d_3.jpg"], interval: 11e3 },
+  8: { frames: ["/3d_1.jpg", "/3d_2.jpg", "/3d_3.jpg"], interval: 11e3 },
   9: {
-    frames: ["my_book_1.jpg", "my_book_2.jpg", "my_book_3.jpg", "my_book_4.jpg"],
+    frames: ["/my_book_1.jpg", "/my_book_2.jpg", "/my_book_3.jpg", "/my_book_4.jpg"],
     interval: 8e3,
     mode: "slideDown",
   },

@@ -21,7 +21,7 @@ export default async function ProjectPage({
       title={project.heroTitle ?? project.title}
       tagline={project.tagline ?? project.desc ?? ""}
       subtitle={project.panelNote ?? project.desc ?? ""}
-      hero={project.hero ?? "nuetel_hero.jpg"}
+      hero={project.hero ?? "/nuetel_hero.jpg"}
       titleSize={project.titleSize ?? 96}
       heroInk={project.heroInk ?? "#fff"}
       heroRuleFull={project.heroRuleFull}

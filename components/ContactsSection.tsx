@@ -359,8 +359,8 @@ export default function ContactsSection() {
         >
           {/* фоновое видео со стеклянными панелями справа — как на HERO */}
           <HeroImage
-            src="contacts/back.webp"
-            video={["contacts/back.webm", "contacts/back.mp4"]}
+            src="/contacts/back.webp"
+            video={["/contacts/back.webm", "/contacts/back.mp4"]}
             className="absolute inset-0 z-0"
           />
           <div

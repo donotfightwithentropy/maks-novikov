@@ -6,7 +6,7 @@ import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js"
 
 import { RoomEnvironment } from "./RoomEnvironment";
 
-const MODEL_URL = "models/nuetel-keyboard.glb";
+const MODEL_URL = "/models/nuetel-keyboard.glb";
 /** Максимальный наклон группы от курсора — 10° в радианах */
 const MAX_TILT = (10 * Math.PI) / 180;
 /** Множитель интенсивности источников света, импортированных из .glb */
