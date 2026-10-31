@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { isPhoneDevice } from "@/lib/device";
 import ShaderBackdrop from "@/components/ShaderBackdrop";
 import SiteMenu from "@/components/SiteMenu";
 import { HeroTitle } from "@/components/HeroTitle";
@@ -1190,7 +1191,8 @@ export default function AboutView() {
   /* ниже этой ширины экран собирается в одну колонку */
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
-    const check = () => setMobile(window.innerWidth < 900);
+    const check = () =>
+      setMobile(isPhoneDevice() || window.innerWidth < 900);
     check();
     /* на телефоне ширина окна встаёт не сразу после первой отрисовки,
        поэтому следим и за размером документа, не только за resize */

@@ -8,6 +8,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // TODO: восстанавливается отдельным файлом (в бандле — `fl`)
+import { isPhoneDevice, usePhoneDevice } from "@/lib/device";
 import SplitText from "@/components/SplitText";
 import { CharacterText, AbilitiesText } from "@/components/CharacterText";
 // TODO: восстанавливается отдельным файлом (в бандле — `kE`), принимает { delay?, fade, rise }
@@ -166,8 +167,10 @@ export function useWideLayout() {
   useEffect(() => {
     const measure = () =>
       setWide(
-        window.innerWidth >= PANEL_MIN_W ||
-          isWideLayout(window.innerWidth, window.innerHeight),
+        /* на телефоне раскладка «в ряд» не нужна ни при какой ориентации */
+        !isPhoneDevice() &&
+          (window.innerWidth >= PANEL_MIN_W ||
+            isWideLayout(window.innerWidth, window.innerHeight)),
       );
     measure();
     window.addEventListener("resize", measure);
@@ -269,9 +272,13 @@ export default function CharacterExperience() {
     null,
   );
   const [status, setStatus] = useState<Status>("loading");
+  /* на телефоне сцену не поднимаем вовсе: ни канвы, ни загрузки модели */
+  const phone = usePhoneDevice();
 
   useEffect(() => {
-    const host = hostRef.current!;
+    const host = hostRef.current;
+    /* phone === null — ещё не знаем, ждём следующего прохода эффекта */
+    if (phone !== false || !host) return;
     let visible = false;
     /* При смене раскладки канва переезжает в другой контейнер. Все привязки
        к элементу (размер, видимость, курсор) должны переехать вместе с ней,
@@ -604,7 +611,7 @@ export default function CharacterExperience() {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, []);
+  }, [phone]);
 
   const [hovered, setHovered] = useState<number | null>(null);
   const [cardHover, setCardHover] = useState<number | null>(null);
@@ -659,7 +666,7 @@ export default function CharacterExperience() {
   /* при смене раскладки хост канвы меняется — переносим её в новый */
   useEffect(() => {
     const host = hostRef.current;
-    if (!host) return;
+    if (!host || phone !== false) return;
     /* раскладка уже применена к DOM — переносим сцену в актуальный контейнер */
     const id = requestAnimationFrame(() => sceneRef.current?.rebind(host));
     return () => cancelAnimationFrame(id);
@@ -807,7 +814,7 @@ export default function CharacterExperience() {
           )}
 
           {/* ── 3d-модель: зажимается первой, при нехватке места уезжает вниз ── */}
-          {wide && (
+          {wide && phone === false && (
             <motion.div
               className="absolute"
               style={{
@@ -950,7 +957,7 @@ export default function CharacterExperience() {
       </div>
 
       {/* ── 3d-модель отдельным блоком, когда в ряд не помещается ── */}
-      {!wide && (
+      {!wide && phone === false && (
         <div className="relative w-full" style={{ height: "70svh", minHeight: 420 }}>
           <Scene3d hostRef={hostRef} status={status} />
         </div>

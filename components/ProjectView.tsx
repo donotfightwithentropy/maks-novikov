@@ -17,6 +17,7 @@ import {
   type MotionValue,
 } from "motion/react";
 
+import { isPhoneDevice } from "@/lib/device";
 import NuetelScene from "@/components/NuetelScene";
 import { TO_PROJECTS_KEY } from "@/components/HomeScrollRestore";
 import { MENU_TARGET_KEY } from "@/components/SiteMenu";
@@ -5156,7 +5157,10 @@ const MOBILE_MAX = 900;
 function useMobileLayout() {
   const [mobile, setMobile] = useState(false);
   useEffect(() => {
-    const read = () => setMobile(window.innerWidth <= MOBILE_MAX);
+    /* телефон — всегда мобильная вёрстка, в любой ориентации;
+       узкое окно на десктопе тоже получает её */
+    const read = () =>
+      setMobile(isPhoneDevice() || window.innerWidth <= MOBILE_MAX);
     read();
     /* ширина бывает не финальной на первом эффекте — перечитываем */
     const t = window.setTimeout(read, 400);

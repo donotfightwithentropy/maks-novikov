@@ -1,5 +1,6 @@
 "use client";
 
+import { isPhoneDevice } from "@/lib/device";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   AnimatePresence,
@@ -275,7 +276,7 @@ export default function ContactsSection() {
        а масштаб уходит вниз только в низком окне, чтобы экран не обрезался */
     const kFit = (H - PAD_TOP - PAD_BOTTOM) / CONTENT_H;
     /* на узком экране колонка просто встаёт по охранным полям окна */
-    const tight = W < 900;
+    const tight = isPhoneDevice() || W < 900;
     /* то же охранное поле, что у текста в кадре персонажа */
     const pad = Math.min(60, 17.74 + 0.0564 * W);
     setGeo({
