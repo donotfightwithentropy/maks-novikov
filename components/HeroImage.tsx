@@ -264,14 +264,22 @@ export function HeroImage({
     let cssHeight = 0;
     let panelW = panelWidth;
     let dpr = 1;
+    /* желаемый размер буфера; применяется перед самой отрисовкой */
+    let pendingWidth = 1;
+    let pendingHeight = 1;
 
     const resize = () => {
       cssWidth = container.clientWidth;
       cssHeight = container.clientHeight;
       if (!cssWidth || !cssHeight) return;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.round(cssWidth * dpr);
-      canvas.height = Math.round(cssHeight * dpr);
+      /* Размер буфера только запоминаем: присваивание canvas.width очищает
+         содержимое, а рисуем мы позже, в requestAnimationFrame. На телефоне
+         при скролле прячется адресная строка, ResizeObserver срабатывает
+         пачками — и между очисткой и отрисовкой экран успевает мигнуть.
+         Поэтому буфер меняем в том же кадре, где идёт drawArrays. */
+      pendingWidth = Math.max(1, Math.round(cssWidth * dpr));
+      pendingHeight = Math.max(1, Math.round(cssHeight * dpr));
       // панели должны ровно покрывать остаток ширины справа от startX
       const wanted = cssWidth < 768 ? panelWidth * 0.75 : panelWidth;
       const available = cssWidth - (start * cssWidth + startOffset);
@@ -343,11 +351,17 @@ export function HeroImage({
       if (!needsRender && !animating) return;
       needsRender = false;
 
+      const [mediaW, mediaH] = mediaSize(image);
+      if (!mediaW || !mediaH) return;
+
+      /* буфер меняем здесь, вплотную к drawArrays: очистка и отрисовка
+         попадают в один кадр, пустого канваса на экране не бывает */
+      if (canvas.width !== pendingWidth) canvas.width = pendingWidth;
+      if (canvas.height !== pendingHeight) canvas.height = pendingHeight;
+
       const w = canvas.width;
       const h = canvas.height;
       const canvasAspect = w / h;
-      const [mediaW, mediaH] = mediaSize(image);
-      if (!mediaW || !mediaH) return;
       const imageAspect = mediaW / mediaH;
       const [focusX, focusY] = isMobile ? mobileFocus : focus;
       // эмуляция object-fit: cover через масштаб/смещение uv

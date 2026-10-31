@@ -227,13 +227,19 @@ export default function ShaderBackdrop({
     let lastWidth = 0;
     let lastHeight = 0;
 
+    /* Только запоминаем нужный размер: присваивание canvas.width очищает
+       буфер, и если сделать это вне кадра отрисовки, слой на мгновение
+       становится пустым. На телефоне при скролле адресная строка меняет
+       высоту постоянно — получается заметное мерцание. */
     const resize = () => {
       const rect = canvas.getBoundingClientRect();
-      const width = Math.max(1, Math.round(rect.width * getDpr()));
-      const height = Math.max(1, Math.round(rect.height * getDpr()));
-      if (width === lastWidth && height === lastHeight) return;
-      lastWidth = width;
-      lastHeight = height;
+      lastWidth = Math.max(1, Math.round(rect.width * getDpr()));
+      lastHeight = Math.max(1, Math.round(rect.height * getDpr()));
+    };
+
+    /* применяется в начале кадра, сразу перед drawArrays */
+    const applySize = () => {
+      if (canvas.width === lastWidth && canvas.height === lastHeight) return;
       canvas.width = lastWidth;
       canvas.height = lastHeight;
       gl.viewport(0, 0, lastWidth, lastHeight);
@@ -261,6 +267,7 @@ export default function ShaderBackdrop({
     const render = () => {
       frameId = requestAnimationFrame(render);
       if (isVisible) {
+        applySize();
         // при prefers-reduced-motion время замораживаем на нуле
         gl.uniform1f(
           timeLocation,
