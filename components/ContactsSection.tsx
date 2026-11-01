@@ -106,6 +106,8 @@ const LINKS: { label: string; href: string; download?: boolean }[] = [
 /* Экран подъезжает на треть медленнее страницы — зеркально HERO */
 const SLOW_SVH = 50;
 const RISE_VH = 7;
+/** доля прокрутки, на которой экран уже полностью развёрнут */
+const EXPAND_END = 0.9;
 
 const RULE_DURATION = 1.6;
 const REVEAL_DURATION = 1.6;
@@ -206,13 +208,25 @@ export default function ContactsSection() {
     target: wrapRef,
     offset: ["start end", "end end"],
   });
-  const scale = useTransform(scrollYProgress, [0, 1], [0.48, 1]);
+  /* Разворачивание заканчиваем с запасом по прокрутке: если довести его
+     ровно до единицы, финальное состояние достижимо только в самой крайней
+     точке скролла. На телефоне до неё часто не доезжают — мешает резинка и
+     адресная строка, — и экран остаётся чуть уменьшенным, с полями по бокам. */
+  const scale = useTransform(scrollYProgress, [0, EXPAND_END], [0.48, 1], {
+    clamp: true,
+  });
   const y = useTransform(
     scrollYProgress,
-    [0, 1],
+    [0, EXPAND_END],
     [`${RISE_VH - SLOW_SVH}svh`, "0vh"],
+    { clamp: true },
   );
-  const borderRadius = useTransform(scrollYProgress, [0, 1], ["28px", "0px"]);
+  const borderRadius = useTransform(
+    scrollYProgress,
+    [0, EXPAND_END],
+    ["28px", "0px"],
+    { clamp: true },
+  );
 
   const [mailHover, setMailHover] = useState(false);
   const mail = useDecrypt(EMAIL_ADDRESS, mailHover);
@@ -325,7 +339,7 @@ export default function ContactsSection() {
      целиком трансформом: layout от этого не меняется, поэтому нет
      перерасчёта по кругу */
   const avail = geo.h - PAD_TOP - PAD_BOTTOM;
-  const fit = stackH > avail && stackH > 0 ? Math.max(0.55, avail / stackH) : 1;
+  const fit = stackH > avail && stackH > 0 ? Math.max(0.42, avail / stackH) : 1;
   /* стопка центрируется по окну и не вылезает за нижнее поле */
   const sceneTop = Math.max(
     PAD_TOP,
@@ -351,11 +365,11 @@ export default function ContactsSection() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div ref={wrapRef} className="relative z-10 h-[150svh] min-h-[900px]">
+      <div ref={wrapRef} className="relative z-10 h-[150svh] min-h-0 md:min-h-[900px]">
         <motion.section
           ref={sectionRef}
           style={{ scale, y, borderRadius, background: INK }}
-          className="absolute bottom-0 left-0 h-[100svh] min-h-[600px] w-full overflow-clip will-change-transform"
+          className="absolute bottom-0 left-0 h-[100svh] min-h-0 w-full overflow-clip will-change-transform md:min-h-[600px]"
           aria-label="Contacts"
         >
           {/* фоновое видео со стеклянными панелями справа — как на HERO */}
