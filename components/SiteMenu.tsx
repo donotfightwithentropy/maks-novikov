@@ -205,21 +205,6 @@ export default function SiteMenu() {
 
   return (
     <>
-      {/* На телефоне под иконкой меню лежит полоса с размытием того,
-          что под ней прокручивается */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[88px] md:hidden"
-        style={{
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          maskImage:
-            "linear-gradient(180deg, #000 0%, #000 72%, rgba(0,0,0,0) 100%)",
-          WebkitMaskImage:
-            "linear-gradient(180deg, #000 0%, #000 72%, rgba(0,0,0,0) 100%)",
-        }}
-      />
-
       <motion.button
         type="button"
         aria-label="Open menu"
@@ -244,7 +229,10 @@ export default function SiteMenu() {
             setCursor(null);
           }
         }}
-        className="fixed top-8 left-[var(--gutter-mobile)] z-[90] h-8 w-[60px] md:top-12 md:left-[50px] xl:top-[59px]"
+        /* На телефоне иконка стоит в левом верхнем углу страницы и
+           уезжает вместе с контентом — никакого оверлея поверх всего.
+           С md и выше поведение прежнее: закреплена в углу экрана. */
+        className="absolute top-8 left-[var(--gutter-mobile)] z-[90] h-8 w-[60px] md:fixed md:top-12 md:left-[50px] xl:top-[59px]"
         style={{ cursor: "none", scale: uiScale, transformOrigin: "top left" }}
       >
         <span className="relative block h-8 w-[60px]">

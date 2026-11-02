@@ -45,7 +45,7 @@ const html = `<title>Maks Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700&family=Cormorant+Garamond:wght@400;700&display=swap">
 <style>${css}
-body{margin:0;background:#031828}</style>
+body{margin:0;background:#092D45}</style>
 <div id="root"></div>
 <script>${js}</script>
 `;

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "motion/react";
-import ShaderBackdrop from "@/components/ShaderBackdrop";
+import Backdrop from "@/components/Backdrop";
 import SiteMenu from "@/components/SiteMenu";
 import { useTransitionNav } from "@/components/PageTransition";
 import { PROJECTS, projectHref, type Project } from "@/lib/projects";
@@ -131,7 +131,7 @@ export default function ProjectsPage() {
 
   return (
     <main className="relative min-h-[100svh]" aria-label="Projects">
-      <ShaderBackdrop className="pointer-events-none fixed inset-0 z-0 h-full w-full" />
+      <Backdrop className="pointer-events-none fixed inset-0 z-0 h-full w-full" />
 
       <div
         className="relative z-10 mx-auto flex flex-col"

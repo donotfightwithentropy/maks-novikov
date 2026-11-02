@@ -12,6 +12,7 @@ import {
 } from "motion/react";
 import { HeroTitle } from "@/components/HeroTitle";
 import { HeroImage } from "@/components/HeroImage";
+import { BACKDROP } from "@/components/Backdrop";
 
 const ACCENT = "#B91372";
 const INK = "#031828";
@@ -383,7 +384,7 @@ export default function ContactsSection() {
       <div ref={wrapRef} className="relative z-10 h-[150svh] min-h-0 md:min-h-[900px]">
         <motion.section
           ref={sectionRef}
-          style={{ scale, y, borderRadius, background: INK }}
+          style={{ scale, y, borderRadius, background: BACKDROP }}
           className="absolute bottom-0 left-0 h-[100svh] min-h-0 w-full overflow-clip will-change-transform md:min-h-[600px]"
           aria-label="Contacts"
         >

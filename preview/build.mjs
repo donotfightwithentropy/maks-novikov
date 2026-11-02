@@ -124,7 +124,7 @@ writeFileSync(
 <title>Maks — Portfolio</title>
 <link rel="stylesheet" href="fonts.css">
 <link rel="stylesheet" href="bundle.css">
-<style>body{margin:0;background:#031828}</style>
+<style>body{margin:0;background:#092D45}</style>
 </head>
 <body>
 <div id="root"></div>

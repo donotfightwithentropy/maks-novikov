@@ -93,9 +93,6 @@ export function Hero() {
               mobileFocus={[0.5, 0.5]}
               className="absolute inset-0"
             />
-            {/* на мобиле картинка растворяется в фоне сверху и снизу */}
-            {/* снизу картинка растворяется в фоне; сверху — во всю кромку */}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent via-45% to-ink lg:hidden" />
           </motion.div>
 
           <HeroTitle delay={0.3} />

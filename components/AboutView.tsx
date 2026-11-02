@@ -4,7 +4,7 @@ import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { isPhoneDevice } from "@/lib/device";
-import ShaderBackdrop from "@/components/ShaderBackdrop";
+import Backdrop, { BACKDROP } from "@/components/Backdrop";
 import SiteMenu from "@/components/SiteMenu";
 import { HeroTitle } from "@/components/HeroTitle";
 import SplitText, { SPLIT_TEXT_STAGGER } from "@/components/SplitText";
@@ -1266,8 +1266,8 @@ export default function AboutView() {
 
   if (mobile) {
     return (
-      <main className="relative min-h-[100svh]" style={{ background: INK }}>
-        <ShaderBackdrop className="pointer-events-none fixed inset-0 z-0 h-full w-full" />
+      <main className="relative min-h-[100svh]" style={{ background: BACKDROP }}>
+        <Backdrop className="pointer-events-none fixed inset-0 z-0 h-full w-full" />
 
         <div
           className="relative z-20"
@@ -1468,8 +1468,8 @@ export default function AboutView() {
   }
 
   return (
-    <main className="relative min-h-[100svh]" style={{ background: INK }}>
-      <ShaderBackdrop className="pointer-events-none fixed inset-0 z-0 h-full w-full" />
+    <main className="relative min-h-[100svh]" style={{ background: BACKDROP }}>
+      <Backdrop className="pointer-events-none fixed inset-0 z-0 h-full w-full" />
 
       {/* hold frame — стоит на месте при прокрутке */}
       <div

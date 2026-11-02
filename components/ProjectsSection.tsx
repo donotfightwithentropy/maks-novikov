@@ -71,6 +71,8 @@ const CURTAIN_MS = 700;
 /** пауза между закрытием и открытием занавеса, мс */
 const CURTAIN_HOLD_MS = 150;
 const CURTAIN_EASE = "cubic-bezier(0.42,0,0.58,1)";
+import { BACKDROP } from "@/components/Backdrop";
+
 const INK = "#031828";
 
 type CurtainSide = "l" | "r";
@@ -879,7 +881,7 @@ function GalleryTile({ tile, step, progress }: GalleryTileProps) {
                 aria-hidden
                 className="absolute inset-0"
                 style={{
-                  backgroundColor: INK,
+                  backgroundColor: BACKDROP,
                   clipPath:
                     phase === "idle" ? curtainHidden(side) : curtainClosed(side),
                   transition:

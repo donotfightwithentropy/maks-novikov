@@ -314,7 +314,7 @@ export default function CharacterExperience() {
     host.appendChild(renderer.domElement);
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.Fog(0x031828, 12, 30);
+    scene.fog = new THREE.Fog(0x092d45, 12, 30);
 
     const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 100);
     const CAM = { y: 1.85, z: 7.2, lookY: 1.62 };
