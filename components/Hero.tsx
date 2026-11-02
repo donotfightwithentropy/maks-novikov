@@ -73,11 +73,11 @@ export function Hero() {
           className="relative h-[100svh] min-h-[600px] overflow-clip will-change-transform"
           aria-label="Intro"
         >
-          {/* на телефоне и планшете кадр занимает верхнюю часть экрана:
-              так пропорции блока близки к пропорциям снимка и кадрирование
-              почти не режет картинку — раньше она была сильно увеличена */}
+          {/* На телефоне кадр во весь экран. Чтобы при этом картинку не
+              раздувало, мобильный файл — вертикальный: сама фотография в нём
+              целиком, а поля сверху и снизу достроены её же размытой копией. */}
           <motion.div
-            className="absolute inset-x-0 top-0 z-0 h-[64svh] lg:bottom-auto lg:h-auto lg:aspect-[1.79965]"
+            className="absolute inset-0 z-0 lg:bottom-auto lg:aspect-[1.79965]"
             initial={{ opacity: 0, scale: 1.6, y: 50 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 1.9, ease: EASE_OUT }}
@@ -86,7 +86,7 @@ export function Hero() {
               src="/hero.jpg"
               mobileSrc="/hero-mobile.jpg"
               focus={[0.5, 0.5]}
-              mobileFocus={[0.5, 0.42]}
+              mobileFocus={[0.5, 0.5]}
               className="absolute inset-0"
             />
             {/* на мобиле картинка растворяется в фоне сверху и снизу */}
