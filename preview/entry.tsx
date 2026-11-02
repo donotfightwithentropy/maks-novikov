@@ -6,6 +6,7 @@ import PageTransition from "@/components/PageTransition";
 import ProjectView from "@/components/ProjectView";
 import HomePage from "@/app/page";
 import AboutView from "@/components/AboutView";
+import ProjectsPage from "@/components/ProjectsPage";
 import { projectBySlug } from "@/lib/projects";
 
 function PreviewApp() {
@@ -13,11 +14,14 @@ function PreviewApp() {
   const slug = path.startsWith("/projects/") ? path.slice(10) : null;
   const project = slug ? projectBySlug(slug) : null;
   const about = path === "/about";
+  const projectsPage = path === "/projects";
 
   return (
     <PageTransition>
       {about ? (
         <AboutView />
+      ) : projectsPage ? (
+        <ProjectsPage />
       ) : project ? (
         <ProjectView
           title={project.heroTitle ?? project.title}
