@@ -293,13 +293,26 @@ export default function ContactsSection() {
     const tight = isPhoneDevice() || W < 900;
     /* то же охранное поле, что у текста в кадре персонажа */
     const pad = Math.min(60, 17.74 + 0.0564 * W);
-    setGeo({
+    const next = {
       left: tight ? pad : heroLeft,
       span: tight ? W - 2 * pad : heroBox,
       k: Math.min(1, kFit) * CONTENT_SCALE,
       h: H,
       tight,
-    });
+    };
+    /* На iPhone прокрутка прячет адресную строку, из-за чего высота
+       documentElement меняется и ResizeObserver стреляет пачками прямо
+       во время анимации разворачивания. Без этой проверки каждый такой
+       вызов давал бы новый объект и перерисовку всего экрана. */
+    setGeo((prev) =>
+      prev.left === next.left &&
+      prev.span === next.span &&
+      prev.k === next.k &&
+      prev.h === next.h &&
+      prev.tight === next.tight
+        ? prev
+        : next,
+    );
   }, []);
 
   useLayoutEffect(() => {
@@ -319,9 +332,11 @@ export default function ContactsSection() {
   useEffect(() => {
     const el = stackRef.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setStackH(el.offsetHeight));
+    const read = () =>
+      setStackH((prev) => (prev === el.offsetHeight ? prev : el.offsetHeight));
+    const ro = new ResizeObserver(read);
     ro.observe(el);
-    setStackH(el.offsetHeight);
+    read();
     return () => ro.disconnect();
   }, []);
 

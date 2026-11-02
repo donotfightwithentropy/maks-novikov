@@ -9,6 +9,7 @@ import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // TODO: восстанавливается отдельным файлом (в бандле — `fl`)
 import { isPhoneDevice, useTouchDevice } from "@/lib/device";
+import { useStableViewport } from "@/lib/viewport";
 import SplitText from "@/components/SplitText";
 import { CharacterText, AbilitiesText } from "@/components/CharacterText";
 // TODO: восстанавливается отдельным файлом (в бандле — `kE`), принимает { delay?, fade, rise }
@@ -163,20 +164,21 @@ const PANEL_MIN_W = 1600;
     Широкое окно (от 1600 px) считаем «в ряд» в любом случае: при очень
     высоком окне формула выше срабатывала бы и на большом мониторе. */
 export function useWideLayout() {
-  const [wide, setWide] = useState(true);
+  /* та же стабильная база высоты, что и у сцены: режим раскладки не должен
+     переключаться оттого, что браузер спрятал адресную строку */
+  const { w, h } = useStableViewport({ w: STAGE_MAX, h: STAGE_H });
+  const [phone, setPhone] = useState(false);
   useEffect(() => {
-    const measure = () =>
-      setWide(
-        /* на телефоне раскладка «в ряд» не нужна ни при какой ориентации */
-        !isPhoneDevice() &&
-          (window.innerWidth >= PANEL_MIN_W ||
-            isWideLayout(window.innerWidth, window.innerHeight)),
-      );
-    measure();
-    window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    const read = () => setPhone(isPhoneDevice());
+    const id = requestAnimationFrame(read);
+    window.addEventListener("resize", read);
+    return () => {
+      cancelAnimationFrame(id);
+      window.removeEventListener("resize", read);
+    };
   }, []);
-  return wide;
+  /* на телефоне раскладка «в ряд» не нужна ни при какой ориентации */
+  return !phone && (w >= PANEL_MIN_W || isWideLayout(w, h));
 }
 
 /** таблица опыта: от левого края колонки способностей до охранного поля */
@@ -624,18 +626,10 @@ export default function CharacterExperience() {
      гидратации React не правит расхождения в разметке, и сцена осталась бы
      в размере 1920×1080 с масштабом 1 — на экране уже она не помещается.
      Поэтому стартуем с тех же констант и меряем окно кадром позже. */
-  const [win, setWin] = useState({ w: STAGE_MAX, h: STAGE_H });
-  useEffect(() => {
-    const measure = () =>
-      setWin({ w: window.innerWidth, h: window.innerHeight });
-    /* кадр спустя — гидратация к этому моменту уже завершена */
-    const id = requestAnimationFrame(measure);
-    window.addEventListener("resize", measure);
-    return () => {
-      cancelAnimationFrame(id);
-      window.removeEventListener("resize", measure);
-    };
-  }, []);
+  /* Высоту берём не из window.innerHeight, а из стабильной базы 100svh:
+     на iPhone адресная строка прячется по ходу прокрутки, innerHeight при
+     этом «плывёт», и сцена пересчитывалась бы на каждом шаге скролла. */
+  const win = useStableViewport({ w: STAGE_MAX, h: STAGE_H });
   const vw = win.w;
   /* Сцена нарисована в кадре 1920×1080 и целиком вписывается в окно:
      сначала берём масштаб по высоте, в этом масштабе раскладываем колонки,

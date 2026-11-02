@@ -236,12 +236,12 @@ export function HeroImage({
 
     /* видео грузится в ту же текстуру, кадр за кадром */
     const videoEl = videoRef.current;
+    /* Для видео mip-уровни не строим: кадр 864×432 выводится примерно один
+       к одному или крупнее, так что уменьшения, ради которого нужны мипы,
+       здесь нет. А generateMipmap на каждом кадре — это полная перестройка
+       цепочки уровней 18 раз в секунду прямо во время прокрутки. */
     const setTextureParams = () => {
-      gl.texParameteri(
-        gl.TEXTURE_2D,
-        gl.TEXTURE_MIN_FILTER,
-        gl.LINEAR_MIPMAP_LINEAR,
-      );
+      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
       gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
@@ -254,7 +254,6 @@ export function HeroImage({
       gl.bindTexture(gl.TEXTURE_2D, texture);
       gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, videoEl);
-      gl.generateMipmap(gl.TEXTURE_2D);
       setTextureParams();
       if (!image) {
         image = videoEl;
@@ -330,11 +329,15 @@ export function HeroImage({
       if (videoEl && uploadVideoFrame()) needsRender = true;
       if (!image) return;
 
-      // если канвас сдвинулся/изменился — перерисовать
-      const rect = canvas.getBoundingClientRect();
-      const rectKey = `${rect.left | 0},${rect.top | 0},${rect.width | 0}`;
-      if (rectKey !== lastRect) {
-        lastRect = rectKey;
+      /* Страховка на случай, если ResizeObserver что-то пропустил. Берём
+         размер из layout (clientWidth/clientHeight), а не положение на
+         экране: картинка в шейдере от позиции не зависит, а внешние
+         transform-ы её и так двигают и масштабируют сами. Раньше сюда
+         входили rect.left/top, и при прокрутке кадр перерисовывался
+         заново практически каждый animation frame. */
+      const sizeKey = `${container.clientWidth},${container.clientHeight}`;
+      if (sizeKey !== lastRect) {
+        lastRect = sizeKey;
         needsRender = true;
       }
 
