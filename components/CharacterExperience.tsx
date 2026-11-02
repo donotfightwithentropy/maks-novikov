@@ -8,7 +8,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // TODO: восстанавливается отдельным файлом (в бандле — `fl`)
-import { isPhoneDevice, usePhoneDevice } from "@/lib/device";
+import { isPhoneDevice, useTouchDevice } from "@/lib/device";
 import SplitText from "@/components/SplitText";
 import { CharacterText, AbilitiesText } from "@/components/CharacterText";
 // TODO: восстанавливается отдельным файлом (в бандле — `kE`), принимает { delay?, fade, rise }
@@ -272,13 +272,15 @@ export default function CharacterExperience() {
     null,
   );
   const [status, setStatus] = useState<Status>("loading");
-  /* на телефоне сцену не поднимаем вовсе: ни канвы, ни загрузки модели */
-  const phone = usePhoneDevice();
+  /* На устройствах без мыши сцену не поднимаем вовсе: ни канвы, ни
+     загрузки модели. Планшет при этом сохраняет десктопную раскладку —
+     просто без 3d и без нагрузки на батарею. */
+  const touch = useTouchDevice();
 
   useEffect(() => {
     const host = hostRef.current;
-    /* phone === null — ещё не знаем, ждём следующего прохода эффекта */
-    if (phone !== false || !host) return;
+    /* touch === null — ещё не знаем, ждём следующего прохода эффекта */
+    if (touch !== false || !host) return;
     let visible = false;
     /* При смене раскладки канва переезжает в другой контейнер. Все привязки
        к элементу (размер, видимость, курсор) должны переехать вместе с ней,
@@ -518,6 +520,7 @@ export default function CharacterExperience() {
     let pointerActive = false;
 
     const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
       const rect = activeHost.getBoundingClientRect();
       if (event.clientY < rect.top || event.clientY > rect.bottom) return;
       const nx = ((event.clientX - rect.left) / rect.width) * 2 - 1;
@@ -611,7 +614,7 @@ export default function CharacterExperience() {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [phone]);
+  }, [touch]);
 
   const [hovered, setHovered] = useState<number | null>(null);
   const [cardHover, setCardHover] = useState<number | null>(null);
@@ -666,7 +669,7 @@ export default function CharacterExperience() {
   /* при смене раскладки хост канвы меняется — переносим её в новый */
   useEffect(() => {
     const host = hostRef.current;
-    if (!host || phone !== false) return;
+    if (!host || touch !== false) return;
     /* раскладка уже применена к DOM — переносим сцену в актуальный контейнер */
     const id = requestAnimationFrame(() => sceneRef.current?.rebind(host));
     return () => cancelAnimationFrame(id);
@@ -814,7 +817,7 @@ export default function CharacterExperience() {
           )}
 
           {/* ── 3d-модель: зажимается первой, при нехватке места уезжает вниз ── */}
-          {wide && phone === false && (
+          {wide && touch === false && (
             <motion.div
               className="absolute"
               style={{
@@ -957,7 +960,7 @@ export default function CharacterExperience() {
       </div>
 
       {/* ── 3d-модель отдельным блоком, когда в ряд не помещается ── */}
-      {!wide && phone === false && (
+      {!wide && touch === false && (
         <div className="relative w-full" style={{ height: "70svh", minHeight: 420 }}>
           <Scene3d hostRef={hostRef} status={status} />
         </div>

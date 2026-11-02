@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 import { RoomEnvironment } from "./RoomEnvironment";
+import { useTouchDevice } from "@/lib/device";
 
 const MODEL_URL = "/models/nuetel-keyboard.glb";
 /** Максимальный наклон группы от курсора — 10° в радианах */
@@ -46,10 +47,14 @@ type Props = {
 
 export default function NuetelScene({ anchorRef, className }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  /* Сцена целиком держится на курсоре: без мыши наклонять её нечем.
+     На телефоне и планшете не поднимаем её вовсе — ни .glb, ни рендера. */
+  const touch = useTouchDevice();
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    /* touch === null — ещё не знаем, ждём следующего прохода эффекта */
+    if (!container || touch !== false) return;
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -167,6 +172,7 @@ export default function NuetelScene({ anchorRef, className }: Props) {
     let tiltY = 0;
 
     const onPointerMove = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
       targetTiltY =
         THREE.MathUtils.clamp(
           (event.clientX / window.innerWidth) * 2 - 1,
@@ -268,7 +274,7 @@ export default function NuetelScene({ anchorRef, className }: Props) {
       renderer.dispose();
       renderer.domElement.remove();
     };
-  }, [anchorRef]);
+  }, [anchorRef, touch]);
 
   return <div ref={containerRef} className={className} aria-hidden />;
 }

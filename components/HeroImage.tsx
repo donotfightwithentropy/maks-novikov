@@ -298,6 +298,8 @@ export function HeroImage({
 
     const pointer = { x: -1, inside: false };
     const onPointerMove = (e: PointerEvent) => {
+      /* эффект следит за курсором: касания и перетаскивания игнорируем */
+      if (e.pointerType !== "mouse") return;
       const rect = canvas.getBoundingClientRect();
       pointer.inside =
         e.clientX >= rect.left &&

@@ -17,7 +17,7 @@ import {
   type MotionValue,
 } from "motion/react";
 
-import { isPhoneDevice } from "@/lib/device";
+import { isPhoneDevice, useTouchDevice } from "@/lib/device";
 import NuetelScene from "@/components/NuetelScene";
 import { TO_PROJECTS_KEY } from "@/components/HomeScrollRestore";
 import { MENU_TARGET_KEY } from "@/components/SiteMenu";
@@ -1031,8 +1031,10 @@ function GuidelineFolder() {
   return (
     <div style={{ paddingTop: cq(150) }}>
       <div
-        onMouseEnter={() => setOpen(true)}
-        onMouseLeave={() => setOpen(false)}
+        /* папка раскрывается только под курсором: на тач-устройствах
+           браузер подделывает mouseenter при тапе и она залипала бы */
+        onPointerEnter={(e) => e.pointerType === "mouse" && setOpen(true)}
+        onPointerLeave={(e) => e.pointerType === "mouse" && setOpen(false)}
         style={{
           position: "relative",
           width: cq(FOLDER.w),
@@ -6895,6 +6897,8 @@ export default function ProjectView({
   });
 
   const sceneAnchorRef = useRef<HTMLDivElement>(null);
+  /* на планшете и телефоне вместо живой сцены — её статичный кадр */
+  const touchDevice = useTouchDevice() === true;
   const fadeRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress: aboutProgress } = useScroll({
@@ -7177,10 +7181,12 @@ export default function ProjectView({
                 overflow: "hidden",
               }}
             >
-              <NuetelScene
-                anchorRef={sceneAnchorRef}
-                className="pointer-events-none fixed inset-0 z-0"
-              />
+              {!touchDevice && (
+                <NuetelScene
+                  anchorRef={sceneAnchorRef}
+                  className="pointer-events-none fixed inset-0 z-0"
+                />
+              )}
               <Rule
                 style={{
                   position: "absolute",
@@ -7409,6 +7415,23 @@ export default function ProjectView({
                   height: cq(675),
                 }}
               />
+              {/* Без мыши сцену не поднимаем, но и дыру в раскладке не
+                  оставляем: на её месте стоит кадр той же модели в той же
+                  позиции. Фон кадра — та же заливка LIGHT, стыка не видно. */}
+              {touchDevice && (
+                <img
+                  src="/sketch/keyboard_still.webp"
+                  alt=""
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    left: cq(748),
+                    top: cq(1103),
+                    width: cq(940),
+                    height: cq(577.5),
+                  }}
+                />
+              )}
             </section>
           </div>
         )}

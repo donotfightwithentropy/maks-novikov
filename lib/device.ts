@@ -20,21 +20,51 @@ export function isPhoneDevice() {
 }
 
 /**
+ * Любое устройство без мыши — телефон или планшет. По этому признаку
+ * выключаем всё, что держится на курсоре: 3d-сцены и ховер-эффекты.
+ * Раскладку по нему не меняем, планшету достаётся десктопная.
+ */
+export function isTouchDevice() {
+  if (typeof window === "undefined") return false;
+  const mq = window.matchMedia?.bind(window);
+  if (!mq) return false;
+  return mq("(pointer: coarse)").matches || mq("(hover: none)").matches;
+}
+
+/** Планшет: пальцем, но экран уже не телефонный */
+export function isTabletDevice() {
+  return isTouchDevice() && !isPhoneDevice();
+}
+
+/**
  * null — пока не знаем (серверный рендер и первый кадр гидратации).
  * Значение появляется кадром позже: во время гидратации React не правит
  * расхождения с серверной разметкой, поэтому первый рендер обязан совпасть.
  */
-export function usePhoneDevice() {
-  const [phone, setPhone] = useState<boolean | null>(null);
+function useDeviceFlag(read: () => boolean) {
+  const [value, setValue] = useState<boolean | null>(null);
   useEffect(() => {
-    const read = () => setPhone(isPhoneDevice());
-    const id = requestAnimationFrame(read);
+    const measure = () => setValue(read());
+    const id = requestAnimationFrame(measure);
     /* смена ориентации и перенос окна на другой экран */
-    window.addEventListener("resize", read);
+    window.addEventListener("resize", measure);
     return () => {
       cancelAnimationFrame(id);
-      window.removeEventListener("resize", read);
+      window.removeEventListener("resize", measure);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return phone;
+  return value;
+}
+
+export function usePhoneDevice() {
+  return useDeviceFlag(isPhoneDevice);
+}
+
+export function useTouchDevice() {
+  return useDeviceFlag(isTouchDevice);
+}
+
+export function useTabletDevice() {
+  return useDeviceFlag(isTabletDevice);
 }
