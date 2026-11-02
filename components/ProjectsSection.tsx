@@ -425,6 +425,8 @@ const ROW_H_MOBILE = 168;
 const ANCHOR_GAP = 40.4;
 /** пауза скролла на таблице проектов, svh */
 const TABLE_HOLD = 45;
+/** то же, но на телефоне: пауза перед экраном контактов короче */
+const TABLE_HOLD_MOBILE = 22;
 /** насколько заголовок с таблицей опущены ниже центра экрана */
 const HEADING_DROP = 18;
 
@@ -478,7 +480,11 @@ function ProjectsTable() {
           TABLE_HOLD — так же, как держится экран Work experience */}
       <div
         className="relative"
-        style={{ height: `calc(100svh + ${TABLE_HOLD}svh)` }}
+        /* на телефоне таблица держится меньше: экран контактов
+           приходит раньше и пауза между ними не растягивается */
+        style={{
+          height: `calc(100svh + ${mode === "mobile" ? TABLE_HOLD_MOBILE : TABLE_HOLD}svh)`,
+        }}
       >
         {/* якорь для меню и восстановления скролла — вне залипающего слоя,
             иначе его позиция плывёт вместе с ним */}

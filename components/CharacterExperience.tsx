@@ -966,7 +966,9 @@ export default function CharacterExperience() {
             className="mx-auto w-full"
             style={{
               maxWidth: 1440,
-              padding: "64px var(--gutter-mobile) 0",
+              /* воздух перед таблицей опыта; такой же зазор стоит
+                 после неё — в распорке на странице */
+              padding: "96px var(--gutter-mobile) 0",
             }}
           >
             <SplitText

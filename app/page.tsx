@@ -18,7 +18,8 @@ export default function HomePage() {
           подтягиваем следующий экран вверх, чтобы не было пустоты */}
       <div className="-mt-[30svh]" aria-hidden />
       <CharacterExperience />
-      <div className="h-[10svh]" aria-hidden />
+      {/* на телефоне — такой же зазор, как перед таблицей опыта */}
+      <div className="h-24 md:h-[10svh]" aria-hidden />
       <ProjectsSection />
       <ContactsSection />
       <SiteMenu />

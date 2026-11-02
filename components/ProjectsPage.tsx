@@ -35,6 +35,7 @@ function ProjectCard({
 
   return (
     <motion.div
+      className="project-card"
       role="link"
       tabIndex={0}
       aria-label={project.title}
@@ -192,6 +193,22 @@ export default function ProjectsPage() {
       <style>{`
         @media (hover: none) {
           .card-caption { opacity: 1 !important; transform: none !important; }
+        }
+        /* На телефоне кадр показываем целиком, а подпись кладём под него
+           на тёмной плашке: при кропе по 16:10 превью сильно обрезались. */
+        @media (max-width: 767px) {
+          .project-card { aspect-ratio: auto !important; }
+          .project-card img {
+            position: static !important;
+            height: auto !important;
+            transform: none !important;
+            filter: none !important;
+          }
+          .project-card .card-caption {
+            position: static !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
         }
       `}</style>
 

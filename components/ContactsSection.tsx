@@ -82,8 +82,7 @@ const LINK = {
 const FOOTER_Y = 816;
 
 const INTRO_LINES = [
-  "No more scrolling, I promise.",
-  "And if you are still here, we probably have something to talk about.",
+  "If you are still here, we probably have something to talk about.",
   "Let\u2019s keep in touch!",
 ];
 
@@ -470,8 +469,16 @@ export default function ContactsSection() {
             {/* почта: при наведении расшифровывается, как кнопки на
                 страницах проектов */}
             <motion.div
-              className="flex w-full flex-wrap items-baseline"
-              style={{ marginTop: p(61), columnGap: p(40), rowGap: p(8) }}
+              /* на телефоне подпись «email copied» не переносится под
+                 адрес, а встаёт справа от него */
+              className={`flex w-full items-baseline ${
+                geo.tight ? "flex-nowrap" : "flex-wrap"
+              }`}
+              style={{
+                marginTop: p(61),
+                columnGap: geo.tight ? 8 : p(40),
+                rowGap: p(8),
+              }}
               {...reveal(BASE_DELAY + 0.6)}
             >
               <a
@@ -512,7 +519,9 @@ export default function ContactsSection() {
                     transition={{ duration: 0.35, ease: EASE_OUT }}
                     style={{
                       color: "rgba(255,255,255,0.7)",
-                      fontSize: p(KICKER.size),
+                      /* на телефоне чуть мельче, чтобы подпись уложилась
+                         в то же охранное поле, что и остальной текст */
+                      fontSize: geo.tight ? p(KICKER.size) * 0.9 : p(KICKER.size),
                       lineHeight: `${p(KICKER.lh)}px`,
                       letterSpacing: p(KICKER.ls),
                       textTransform: "uppercase",

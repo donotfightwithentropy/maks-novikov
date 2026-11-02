@@ -1357,7 +1357,7 @@ export default function AboutView() {
             }}
           >
             This is me during my trip to India, on the outskirts of a small
-            village. The dog is also posing with me and her name is Shakti.
+            village. The dog Shakti is also posing with me.
           </Reveal>
 
           <div style={{ marginTop: M.gap }}>
@@ -1412,35 +1412,38 @@ export default function AboutView() {
           <div
             style={{ marginTop: 20, display: "flex", flexDirection: "column", gap: 12 }}
           >
-            <MobileButton label="My mail" onClick={copyMail} />
+            {/* подпись встаёт справа от самой кнопки, а не под столбиком */}
+            <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+              <MobileButton label="My mail" onClick={copyMail} />
+              <AnimatePresence>
+                {copied && (
+                  <motion.span
+                    key="copied"
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    transition={{ duration: 0.4, ease: EASE_OUT }}
+                    className="font-normal"
+                    style={{
+                      color: "rgba(255,255,255,0.7)",
+                      fontSize: M.caption,
+                      lineHeight: `${M.captionLh}px`,
+                      letterSpacing: 1.5,
+                      textTransform: "uppercase",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Mail copied
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </div>
             <MobileButton
               label="Back to main page"
               rotate={-90}
               onClick={() => go("/")}
             />
           </div>
-          <AnimatePresence>
-            {copied && (
-              <motion.div
-                key="copied"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.4, ease: EASE_OUT }}
-                className="font-normal"
-                style={{
-                  marginTop: 12,
-                  color: "rgba(255,255,255,0.7)",
-                  fontSize: M.caption,
-                  lineHeight: `${M.captionLh}px`,
-                  letterSpacing: 1.5,
-                  textTransform: "uppercase",
-                }}
-              >
-                Mail copied
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           <div style={{ marginTop: M.gap }}>
             <MobileRule />
@@ -1573,7 +1576,7 @@ export default function AboutView() {
           }}
         >
           This is me during my trip to India, on the outskirts of a small
-          village. The dog is also posing with me and her name is Shakti.
+          village. The dog Shakti is also posing with me.
         </Reveal>
 
         {/* вертикальная линия — ровно по центру второй колонки плюсиков */}
