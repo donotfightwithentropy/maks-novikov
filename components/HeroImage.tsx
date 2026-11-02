@@ -2,7 +2,11 @@
 
 import { useEffect, useRef } from "react";
 
-export const MOBILE_QUERY = "(max-width: 1023px)";
+/* Вертикальная вырезка нужна только портретному экрану. Телефон в альбомной
+   ориентации получает обычный широкий кадр: его пропорции почти совпадают
+   с экраном, и фотографию не приходится раздувать. */
+export const MOBILE_QUERY =
+  "(max-width: 1023px) and (orientation: portrait)";
 /** максимальное число стеклянных панелей (размер uniform-массива act[]) */
 export const MAX_PANELS = 64;
 

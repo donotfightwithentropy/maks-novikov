@@ -66,11 +66,15 @@ export function Hero() {
     <MotionConfig reducedMotion="user">
       <div
         ref={sectionRef}
-        className="relative h-[150svh] min-h-[900px]"
+        /* На телефоне в альбомной ориентации нижние границы высоты
+           (900 и 600 px) больше самого экрана: кадр растягивается далеко
+           за пределы вьюпорта, и видна лишь его верхняя часть — отсюда
+           ощущение гигантской приближенной фотографии. Снимаем их. */
+        className="relative h-[150svh] min-h-[900px] [@media(orientation:landscape)_and_(max-height:500px)]:min-h-0"
       >
         <motion.section
           style={{ scale, y, borderRadius }}
-          className="relative h-[100svh] min-h-[600px] overflow-clip will-change-transform"
+          className="relative h-[100svh] min-h-[600px] overflow-clip will-change-transform [@media(orientation:landscape)_and_(max-height:500px)]:min-h-0"
           aria-label="Intro"
         >
           {/* На телефоне кадр во весь экран. Мобильный файл — прямая
@@ -98,7 +102,7 @@ export function Hero() {
 
           {/* на телефоне и планшете приветствие уходит под иконку меню,
               на широких экранах встаёт на место из макета */}
-          <div className="pointer-events-none absolute inset-x-0 top-[104px] z-20 lg:top-12 xl:top-[59px]">
+          <div className="pointer-events-none absolute inset-x-0 top-[104px] z-20 lg:top-12 xl:top-[59px] [@media(orientation:landscape)_and_(max-height:500px)]:!top-[84px]">
             <div className="mx-auto flex w-[min(1215px,calc(100%-2*var(--gutter-mobile)))] flex-col gap-7 md:w-[min(1215px,calc(100%-96px))] md:flex-row lg:w-[min(1215px,calc(100%-240px))] md:items-start md:justify-between">
               <div className="flex flex-col gap-[9px] lg:translate-x-[5px]">
                 <WordReveal
@@ -120,7 +124,9 @@ export function Hero() {
                   className="leading-[1.3] font-normal text-[min(22.93px,3.4vw)]"
                 />
               </div>
-              <div className="hidden w-[240px] -translate-x-[7px] flex-col items-end [--iw:87%] md:flex md:w-[270px] xl:w-[325px]">
+              {/* На телефоне в альбомной ориентации (низкий экран) иконки, линейка
+                  и бегущие роли не помещаются — убираем их целиком. */}
+              <div className="hidden w-[240px] -translate-x-[7px] flex-col items-end [--iw:87%] md:flex md:w-[270px] xl:w-[325px] [@media(orientation:landscape)_and_(max-height:500px)]:!hidden">
                 <motion.div
                   className="flex w-[var(--iw)] items-start justify-end"
                   initial={{ opacity: 0, x: 200 }}
@@ -152,9 +158,9 @@ export function Hero() {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-[100px] z-20 md:bottom-[144px] xl:bottom-[204px]">
+          <div className="pointer-events-none absolute inset-x-0 bottom-[100px] z-20 md:bottom-[144px] xl:bottom-[204px] [@media(orientation:landscape)_and_(max-height:500px)]:!bottom-14">
             <motion.h1
-              className="mx-auto w-[min(1215px,calc(100%-2*var(--gutter-mobile)))] leading-none lg:translate-x-[5px] font-bold tracking-[-0.02em] whitespace-nowrap md:w-[min(1215px,calc(100%-96px))] lg:w-[min(1215px,calc(100%-240px))]"
+              className="mx-auto w-[min(1215px,calc(100%-2*var(--gutter-mobile)))] leading-none lg:translate-x-[5px] font-bold tracking-[-0.02em] whitespace-nowrap md:w-[min(1215px,calc(100%-96px))] lg:w-[min(1215px,calc(100%-240px))] [@media(orientation:landscape)_and_(max-height:500px)]:!text-[44px]"
               style={{ fontSize: "min(85px, 12.6vw)" }}
               initial={{ opacity: 0, y: 70, filter: "blur(14px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}

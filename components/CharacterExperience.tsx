@@ -75,7 +75,7 @@ const EXPERIENCE: ExperienceRow[] = [
     date: "Jul 2021 — Apr 2025",
     company: "YANDEX",
     role: "COMMUNICATION DESIGNER",
-    desc: "Content for Yandex Market platform. 12 000+ banners, 800 icons, 100+ landings and brand zones, coped with significant pressure of deadlines.",
+    desc: "Worked on large-scale marketing campaigns for Samsung, DeLonghi, Kärcher, and others. Produced content at scale, including 12,000+ banners, 800 icons, and 100+ landing pages and brand zones.",
   },
   {
     y: 697,
@@ -88,7 +88,7 @@ const EXPERIENCE: ExperienceRow[] = [
     date: "Oct 2017 — Jun 2021",
     company: "RIDERO",
     role: "GRAPHIC DESIGNER",
-    desc: "200+ original book covers and hundreds of illustrations. Font library of 300+ fonts for covers and text.",
+    desc: "200+ original book covers and hundreds of illustrations. Updated and organized a library of over 300 fonts for book layouts.",
   },
   {
     y: 840,
