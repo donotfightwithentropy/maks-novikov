@@ -238,15 +238,18 @@ const BACK_ICON = 34;
 function BackArrow({
   onClick,
   onCursor,
-  pinned = true,
+  pinned = false,
+  compact = false,
 }: {
   onClick: () => void;
   onCursor: (p: CursorPoint | null) => void;
-  /** false — иконка живёт в потоке страницы и уезжает со скроллом */
+  /** true — иконка висит в оверлее; по умолчанию уезжает со скроллом */
   pinned?: boolean;
+  /** мобильный вариант: меньше отступы, без ховера */
+  compact?: boolean;
 }) {
   const [hover, setHover] = useState(false);
-  if (!pinned)
+  if (compact)
     return (
       <motion.button
         type="button"
@@ -293,7 +296,9 @@ function BackArrow({
         e.pointerType === "mouse" && (setHover(false), onCursor(null));
       }}
       /* на телефоне иконку не показываем совсем */
-      className="fixed top-8 left-5 z-40 hidden md:top-12 md:left-[50px] md:block xl:top-[59px]"
+      className={`${
+        pinned ? "fixed" : "absolute"
+      } top-8 left-5 z-40 hidden md:top-12 md:left-[50px] md:block xl:top-[59px]`}
       style={{ cursor: "none", width: BACK_ICON, height: BACK_ICON }}
       initial={{ x: -600 }}
       animate={{ x: 0 }}
@@ -5679,7 +5684,7 @@ function NuetelMobile({
       aria-label={`${title} — project`}
     >
       {/* стрелка «назад» — только наверху страницы, уезжает со скроллом */}
-      <BackArrow onClick={onBack} onCursor={() => {}} pinned={false} />
+      <BackArrow onClick={onBack} onCursor={() => {}} compact />
       <MHero title={title} tagline={tagline} years={years} hero={hero} />
       <MIntro kicker={kicker} subtitle={subtitle} tokens={tokens} />
 
@@ -6047,7 +6052,7 @@ function YandexMobile({
       style={{ background: LIGHT, overflowX: "clip" }}
       aria-label={`${title} — project`}
     >
-      <BackArrow onClick={onBack} onCursor={() => {}} pinned={false} />
+      <BackArrow onClick={onBack} onCursor={() => {}} compact />
       <MHero title={title} tagline={tagline} years={years} hero={hero} />
       <MIntro kicker={kicker} subtitle={subtitle} tokens={tokens} />
 
@@ -6339,7 +6344,7 @@ function LandingsMobile({
       style={{ background: LIGHT, overflowX: "clip" }}
       aria-label={`${title} — project`}
     >
-      <BackArrow onClick={onBack} onCursor={() => {}} pinned={false} />
+      <BackArrow onClick={onBack} onCursor={() => {}} compact />
       <MHero title={title} tagline={tagline} years={years} hero={hero} />
       <MIntro kicker={kicker} subtitle={subtitle} tokens={tokens} />
       <MLead intro={intro} stats={stats} />
@@ -6582,7 +6587,7 @@ function AdditionalMobile({
       style={{ background: LIGHT, overflowX: "clip" }}
       aria-label={`${title} — project`}
     >
-      <BackArrow onClick={onBack} onCursor={() => {}} pinned={false} />
+      <BackArrow onClick={onBack} onCursor={() => {}} compact />
       {/* кадр сдвинут влево: иначе морда леопарда уезжает за правую кромку */}
       <MHero
         title={title}
@@ -6827,7 +6832,7 @@ export default function ProjectView({
 }: Props) {
   const [cursor, setCursor] = useState<CursorPoint | null>(null);
   const mobile = useMobileLayout();
-  const { back } = useTransitionNav();
+  const { back, go } = useTransitionNav();
   /* страница, у которой контент разложен на два «слоёных» фрейма */
   const hasDev4 = !story && !!intro && outro?.media === "gza";
   /* первый фрейм липнет так, чтобы его низ упёрся в низ экрана */
@@ -6932,12 +6937,14 @@ export default function ProjectView({
     back("/");
   };
 
-  /* на главную и сразу к экрану контактов — тем же способом, что в меню */
+  /* На главную и сразу к экрану контактов. Именно push на "/", а не
+     history.back(): страницу проекта обычно открывают со страницы
+     Projects, и шаг назад увёл бы туда, а не на контакты. */
   const goContacts = () => {
     try {
       sessionStorage.setItem(MENU_TARGET_KEY, "#contacts");
     } catch {}
-    back("/");
+    go("/", "back");
   };
 
   useLayoutEffect(() => {
@@ -7031,7 +7038,7 @@ export default function ProjectView({
       style={{ background: LIGHT, overflowX: "clip" }}
       aria-label={`${title} — project`}
     >
-      <BackArrow onClick={goBack} onCursor={setCursor} pinned={!mobile} />
+      <BackArrow onClick={goBack} onCursor={setCursor} compact={mobile} />
       <div className="relative">
         {/* шапка: hero-картинка, заголовок, линейка, подписи */}
         <section
