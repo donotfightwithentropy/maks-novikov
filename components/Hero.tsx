@@ -87,8 +87,8 @@ export function Hero() {
             transition={{ delay: 1.1, duration: 1.9, ease: EASE_OUT }}
           >
             <HeroImage
-              src="/hero.jpg"
-              mobileSrc="/hero-mobile.jpg"
+              src="/hero.webp"
+              mobileSrc="/hero-mobile.webp"
               focus={[0.5, 0.5]}
               mobileFocus={[0.5, 0.5]}
               className="absolute inset-0"

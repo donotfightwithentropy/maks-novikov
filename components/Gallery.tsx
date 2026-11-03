@@ -315,13 +315,13 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
       transition={{ delay, duration: 0.9, ease: EASE_OUT }}
       className="@container relative block w-full lg:absolute lg:inset-y-0 lg:left-0 lg:w-[66.667%] lg:translate-x-[max(20px,calc(120px-6.72vw))]"
     >
-      <img
+      <img loading="lazy" decoding="async"
         src="/panel-top.svg"
         alt="Maks Novikov — character panel"
         className="block h-full w-full object-contain"
       />
 
-      <motion.img
+      <motion.img loading="lazy" decoding="async"
         src="/panel-helmet.svg"
         data-frame="helmet"
         style={{ willChange: "opacity" }}
@@ -332,7 +332,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
         transition={{ duration: helmetOn ? 0.22 : 0.45, ease: "easeOut" }}
       />
 
-      <motion.img
+      <motion.img loading="lazy" decoding="async"
         src="/panel-coffee.svg"
         data-frame="coffee"
         style={{ willChange: "opacity" }}
@@ -416,7 +416,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
           ))}
       </svg>
 
-      <motion.img
+      <motion.img loading="lazy" decoding="async"
         src="/panel-wink.svg"
         alt=""
         aria-hidden
@@ -442,7 +442,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
         className="pointer-events-none absolute inset-0"
         style={{ transform: `translateY(${cqw(-LOWER_SHIFT_Y)})` }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src="/panel-lower.svg"
           alt=""
           aria-hidden
@@ -512,7 +512,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
         style={{ opacity: fade }}
         className="pointer-events-none absolute inset-0 max-lg:!opacity-100"
       >
-        <img
+        <img loading="lazy" decoding="async"
           src="/panel-fade.svg"
           alt=""
           aria-hidden
@@ -547,7 +547,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
         {/* Перелистывание иконок навыков на «кошачьи» */}
         {ICON_FRAMES.map((frame, i) => (
           <Fragment key={frame.base}>
-            <motion.img
+            <motion.img loading="lazy" decoding="async"
               src={frame.base}
               alt=""
               aria-hidden
@@ -559,7 +559,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
                 ease: "easeOut",
               }}
             />
-            <motion.img
+            <motion.img loading="lazy" decoding="async"
               src={frame.cat}
               alt=""
               aria-hidden
@@ -856,7 +856,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
             transform: `translate(${cqw(-RISE_SHIFT_X)}, ${cqw(-LOWER_SHIFT_Y)})`,
           }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src="/panel-rise.svg"
             alt=""
             aria-hidden
@@ -938,7 +938,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
                   }
                 }}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src={card.base}
                   alt=""
                   aria-hidden
@@ -966,7 +966,7 @@ export default function CharacterPanel({ delay = 0.1, fade, rise }: Props) {
                     transition: `opacity ${CARD_TRANSITION}`,
                   }}
                 />
-                <img
+                <img loading="lazy" decoding="async"
                   src={card.text}
                   alt=""
                   aria-hidden

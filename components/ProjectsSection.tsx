@@ -91,36 +91,36 @@ type TileMedia = {
 };
 
 const TILE_MEDIA: Record<number, TileMedia> = {
-  1: { frames: ["/icon_render_1.jpg"] },
+  1: { frames: ["/icon_render_1.webp"] },
   2: {
-    frames: ["/tavern_1.jpg", "/tavern_2.jpg", "/tavern_3.jpg", "/tavern_4.jpg"],
+    frames: ["/tavern_1.webp", "/tavern_2.webp", "/tavern_3.webp", "/tavern_4.webp"],
     interval: 7e3,
   },
   3: {
-    frames: ["/photostudio_1.jpg", "/photostudio_2.jpg", "/photostudio_3.jpg"],
+    frames: ["/photostudio_1.webp", "/photostudio_2.webp", "/photostudio_3.webp"],
     interval: 1e4,
     mode: "curtain",
   },
   4: {
-    frames: ["/adv_1.jpg", "/adv_2.jpg", "/adv_3.jpg", "/adv_4.jpg"],
+    frames: ["/adv_1.webp", "/adv_2.webp", "/adv_3.webp", "/adv_4.webp"],
     interval: 5500 + SLIDE_MS,
     mode: "slide",
   },
   5: {
-    frames: ["/banners_1.jpg", "/banners_2.jpg", "/banners_3.jpg"],
+    frames: ["/banners_1.webp", "/banners_2.webp", "/banners_3.webp"],
     interval: 9e3,
   },
   6: {
-    frames: ["/landing_1.jpg", "/landing_2.jpg", "/landing_3.jpg", "/landing_4.jpg"],
+    frames: ["/landing_1.webp", "/landing_2.webp", "/landing_3.webp", "/landing_4.webp"],
     interval: 12e3,
   },
   7: {
-    frames: ["/deloghi_1.jpg", "/deloghi_2.jpg", "/deloghi_3.jpg", "/deloghi_4.jpg"],
+    frames: ["/deloghi_1.webp", "/deloghi_2.webp", "/deloghi_3.webp", "/deloghi_4.webp"],
     interval: 5e3,
   },
-  8: { frames: ["/3d_1.jpg", "/3d_2.jpg", "/3d_3.jpg"], interval: 11e3 },
+  8: { frames: ["/3d_1.webp", "/3d_2.webp", "/3d_3.webp"], interval: 11e3 },
   9: {
-    frames: ["/my_book_1.jpg", "/my_book_2.jpg", "/my_book_3.jpg", "/my_book_4.jpg"],
+    frames: ["/my_book_1.webp", "/my_book_2.webp", "/my_book_3.webp", "/my_book_4.webp"],
     interval: 8e3,
     mode: "slideDown",
   },
@@ -790,7 +790,7 @@ function ProjectRow({
             transition: `opacity 520ms ${EASE} ${hot ? "120ms" : "0ms"}, transform 680ms ${EASE}`,
           }}
         >
-          <img src={project.src} alt="" className="h-full w-full object-cover" />
+          <img loading="lazy" decoding="async" src={project.src} alt="" className="h-full w-full object-cover" />
         </div>
       </div>
     </motion.div>
@@ -872,7 +872,7 @@ function GalleryTile({ tile, step, progress }: GalleryTileProps) {
       >
         {isCurtain && media ? (
           <>
-            <img
+            <img loading="lazy" decoding="async"
               src={media.frames[frame]}
               alt=""
               className="absolute inset-0 h-full w-full saturate-[0.3] transition-[filter] duration-500 group-hover:saturate-100"
@@ -898,7 +898,7 @@ function GalleryTile({ tile, step, progress }: GalleryTileProps) {
               />
             ))}
             {(["l", "r"] as CurtainSide[]).map((side) => (
-              <img
+              <img loading="lazy" decoding="async"
                 key={`reveal-${side}`}
                 src={media.frames[frame]}
                 alt=""
@@ -928,7 +928,7 @@ function GalleryTile({ tile, step, progress }: GalleryTileProps) {
             const slideDown = media.mode === "slideDown";
             const sliding = slide || slideDown;
             return (
-              <img
+              <img loading="lazy" decoding="async"
                 key={src}
                 src={src}
                 alt=""

@@ -405,22 +405,24 @@ export function HeroImage({
 
     const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(container);
-    const intersectionObserver = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting;
-      // видео за пределами экрана не крутим
-      if (videoEl) {
-        if (visible) videoEl.play().catch(() => {});
-        else videoEl.pause();
-      }
-    });
+    const intersectionObserver = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting;
+        // видео за пределами экрана не грузим и не крутим
+        if (videoEl) {
+          if (visible) videoEl.play().catch(() => {});
+          else videoEl.pause();
+        }
+      },
+      /* запас, чтобы ролик успел начаться до того, как блок доедет
+         до экрана, и зритель не увидел статичный постер */
+      { rootMargin: "400px" },
+    );
     intersectionObserver.observe(container);
 
     resize();
-    if (videoEl) {
-      videoEl.play().catch(() => {});
-    } else {
-      loadImage();
-    }
+    /* видео стартует само, когда блок попадёт в зону видимости */
+    if (!videoEl) loadImage();
     rafId = requestAnimationFrame(frame);
 
     return () => {
@@ -456,11 +458,14 @@ export function HeroImage({
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
           poster={src}
-          autoPlay
           loop
           muted
           playsInline
-          preload="auto"
+          /* Экран контактов — в самом низу страницы. Без preload="none"
+             браузер тянул ролик сразу при открытии сайта, отнимая канал
+             у того, что видно на первом экране. Запуск — по появлению
+             блока в зоне видимости, см. IntersectionObserver ниже. */
+          preload="none"
           aria-hidden
         >
           {video.map((url) => (

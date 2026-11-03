@@ -949,7 +949,7 @@ function Lightbox({
           justifyContent: "center",
         }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={src}
           alt={alt}
           onClick={(e) => e.stopPropagation()}
@@ -1281,7 +1281,7 @@ function ChatLine({
             "opacity .5s ease, transform .5s cubic-bezier(.22,1,.36,1)",
         }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src={m.right ? "/yan/chat/lead.webp" : "/yan/chat/designer.webp"}
           alt=""
           aria-hidden
@@ -1966,7 +1966,7 @@ function PocketSection() {
         height: cq(POCKET.shot.h),
       }}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={`/pocket/shot_${n}.webp`}
         alt=""
         aria-hidden
@@ -2022,7 +2022,7 @@ function PocketSection() {
             height: cq(POCKET.fin.h),
           }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src="/pocket/fin.webp"
             alt=""
             aria-hidden
@@ -2049,7 +2049,7 @@ function RefundSection() {
   const [stickyRef, stickyTop] = useStickyTop(true);
   const shot = (n: number, delay: number) => (
     <FadeUp key={n} delay={delay} style={{ marginTop: n === 1 || n === 2 ? 0 : cq(REFUND.gap) }}>
-      <img
+      <img loading="lazy" decoding="async"
         src={`/refund/shot_${n}.webp`}
         alt=""
         aria-hidden
@@ -2113,7 +2113,7 @@ function ThumbsSection() {
   const [stickyRef, stickyTop] = useStickyTop(true);
   const pic = (src: string, delay: number, top = 0) => (
     <FadeUp key={src} delay={delay} style={{ marginTop: cq(top) }}>
-      <img
+      <img loading="lazy" decoding="async"
         src={`/thumbs/${src}.webp`}
         alt=""
         aria-hidden
@@ -2239,7 +2239,7 @@ function PetSection() {
   const pic = (n: number, delay: number) => (
     <div key={n} style={{ width: cq(THUMBS.col) }}>
       <FadeUp delay={delay}>
-        <img
+        <img loading="lazy" decoding="async"
           src={`/pet/shot_${n}.webp`}
           alt=""
           aria-hidden
@@ -2286,7 +2286,7 @@ function PetSection() {
       >
         <div style={{ width: cq(THUMBS.col) }}>
           <FadeUp>
-            <img
+            <img loading="lazy" decoding="async"
               src="/pet/shot_1.webp"
               alt=""
               aria-hidden
@@ -2374,7 +2374,7 @@ function Dev4Section() {
       <div style={{ marginLeft: cq(240), width: cq(DEV4.w), marginTop: cq(DEV4.top) }}>
         {[1, 2].map((n) => (
           <FadeUp key={n} delay={(n - 1) * 0.1} style={{ marginTop: n === 1 ? 0 : cq(DEV4.gap) }}>
-            <img
+            <img loading="lazy" decoding="async"
               src={`/dev4/shot_${n}.webp`}
               alt=""
               aria-hidden
@@ -2467,7 +2467,7 @@ function GzaReveal() {
       </video>
 
       {/* когда проявление закончилось, подменяем кадр чёткой картинкой */}
-      <img
+      <img loading="lazy" decoding="async"
         src="/gza/image_fin.webp"
         alt="Gza app — final visual"
         style={{
@@ -2481,7 +2481,7 @@ function GzaReveal() {
         }}
       />
 
-      <motion.img
+      <motion.img loading="lazy" decoding="async"
         src="/gza/phone_shade.webp"
         alt=""
         aria-hidden
@@ -2631,7 +2631,7 @@ function GzaBlock() {
           width: cq(GZA.card.w),
         }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src="/gza/logo_card.webp"
           alt="Gza — application logo concept"
           style={{ display: "block", width: "100%", height: "auto" }}
@@ -2648,8 +2648,8 @@ function GzaBlock() {
           height: cq(GZA.phone.h),
         }}
       >
-        <img
-          src="/icon_render_1.jpg"
+        <img loading="lazy" decoding="async"
+          src="/icon_render_1.webp"
           alt="Gza app icon on the home screen"
           style={{
             display: "block",
@@ -2673,7 +2673,7 @@ function GzaBlock() {
             height: cq(GZA.icons.size),
           }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={`/gza/icon_${i + 1}.svg`}
             alt=""
             aria-hidden
@@ -2692,7 +2692,7 @@ function GzaBlock() {
           height: cq(GZA.cover.h),
         }}
       >
-        <img
+        <img loading="lazy" decoding="async"
           src="/gza/cover.webp"
           alt="Gza app — follow the path less mapped"
           style={{
@@ -2721,7 +2721,7 @@ function GzaBlock() {
             height: cq(GZA.screens.h),
           }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={`/gza/phone_${i + 1}.webp`}
             alt=""
             aria-hidden
@@ -3399,7 +3399,7 @@ repeat step 2 and 3`}
           style={{ display: "flex", gap: cq(PHOTO_GAP), marginTop: cq(SECTION_GAP) }}
         >
           {[1, 2, 3].map((n, i) => (
-            <motion.img
+            <motion.img loading="lazy" decoding="async"
               key={n}
               src={`/yan/exp_${n}.webp`}
               alt=""
@@ -3470,7 +3470,7 @@ repeat step 2 and 3`}
             </FadeUp>
             {/* токены и бейджи — слева от текста про них */}
             <FadeUp delay={0.3} style={{ marginTop: cq(TOKENS_TOP) }}>
-              <img
+              <img loading="lazy" decoding="async"
                 src="/yan/tokens.webp"
                 alt=""
                 aria-hidden
@@ -3561,7 +3561,7 @@ repeat step 2 and 3`}
             >
               {DESIGN_PERFORMS.title}
             </FadeUp>
-            <motion.img
+            <motion.img loading="lazy" decoding="async"
               src="/yan/grand_slam.webp"
               alt=""
               initial={{ opacity: 0, y: 24 }}
@@ -3626,7 +3626,7 @@ repeat step 2 and 3`}
 
         {/* три подборки баннеров перед финальным панно */}
         {[1, 2, 3].map((n) => (
-          <motion.img
+          <motion.img loading="lazy" decoding="async"
             key={n}
             src={`/yan/banners_${n}.webp`}
             alt=""
@@ -3644,7 +3644,7 @@ repeat step 2 and 3`}
           />
         ))}
 
-        <motion.img
+        <motion.img loading="lazy" decoding="async"
           src="/yan/banners_fin.webp"
           alt=""
           initial={{ opacity: 0, y: 24 }}
@@ -3863,13 +3863,13 @@ const ADV_GRID_H = 1840;
 
 const ADV_BANNERS = [
   { src: "/banners/banner_parrot.jpg", x: 0, y: 0, w: 343.5, h: 544 },
-  { src: "/banners/banner_abstract.jpg", x: 365.5, y: 0, w: 343.5, h: 544 },
+  { src: "/banners/banner_abstract.webp", x: 365.5, y: 0, w: 343.5, h: 544 },
   { src: "/banners/banner_icons.jpg", x: 731, y: 0, w: 351, h: 144 },
   { src: "/banners/banner_screen.jpg", x: 1104, y: 0, w: 336, h: 344 },
   { src: "/banners/banner_cloud.jpg", x: 731, y: 166, w: 351, h: 543 },
-  { src: "/banners/banner_3d.jpg", x: 1104, y: 366, w: 336, h: 343 },
+  { src: "/banners/banner_3d.webp", x: 1104, y: 366, w: 336, h: 343 },
   { src: "/banners/banner_hero.jpg", x: 0, y: 566, w: 709, h: 708 },
-  { src: "/banners/banner_adv.jpg", x: 731, y: 731, w: 709, h: 543 },
+  { src: "/banners/banner_adv.webp", x: 731, y: 731, w: 709, h: 543 },
   { src: "/banners/banner_poster.jpg", x: 0, y: 1296, w: 1066, h: 544 },
   { src: "/banners/banner_siprout.jpg", x: 1088, y: 1296, w: 352, h: 544 },
 ];
@@ -4164,7 +4164,7 @@ function MosaicTile({
   const opacity = useTransform(progress, [0, 0.45], [0.45, 1]);
 
   return (
-    <motion.img
+    <motion.img loading="lazy" decoding="async"
       src={src}
       alt=""
       aria-hidden
@@ -4590,7 +4590,7 @@ function LandingBoard() {
             }}
           >
             {[item.src, item.done].map((src, i) => (
-              <img
+              <img loading="lazy" decoding="async"
                 key={src}
                 src={src}
                 alt=""
@@ -4612,7 +4612,7 @@ function LandingBoard() {
             {/* срезы со сдвигом по цвету и мерцающая развёртка — только на миг подмены */}
             {glitch[item.id] && (
               <>
-                <img
+                <img loading="lazy" decoding="async"
                   src={item.done}
                   alt=""
                   aria-hidden
@@ -4627,7 +4627,7 @@ function LandingBoard() {
                     objectPosition: "top",
                   }}
                 />
-                <img
+                <img loading="lazy" decoding="async"
                   src={item.done}
                   alt=""
                   aria-hidden
@@ -4804,7 +4804,7 @@ function VideoNote({ text, image }: { text: string[]; image?: string }) {
           transition={{ duration: 0.8, ease: EASE_SOFT }}
           style={{ marginLeft: "auto", width: cq(VIDEO_NOTE_IMG_W) }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={image}
             alt=""
             style={{
@@ -4860,7 +4860,7 @@ function PreviewCard({
         cursor: "none",
       }}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={item.src}
         alt=""
         style={{
@@ -4997,7 +4997,7 @@ function SketchRow({
           transition={{ duration: 0.8, ease: EASE_SOFT, delay: i * 0.1 }}
           style={{ width: cq(MOSAIC_TILE_W) }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={src}
             alt=""
             style={{
@@ -5286,7 +5286,7 @@ function MShot({
   fit?: "cover" | "contain";
 }) {
   return (
-    <motion.img
+    <motion.img loading="lazy" decoding="async"
       src={src}
       alt=""
       aria-hidden
@@ -5331,7 +5331,7 @@ function MPhone({ crop }: { crop: [string, number, number, number, number] }) {
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
       transition={{ duration: 1.1, ease: EASE_SOFT }}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={src}
         alt=""
         aria-hidden
@@ -5615,7 +5615,7 @@ function MZoomShot({
                 background: "rgba(3,24,40,0.96)",
               }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src={src}
                 alt=""
                 onClick={(e) => {
@@ -5768,8 +5768,8 @@ function NuetelMobile({
           overflow: "hidden",
         }}
       >
-        <img
-          src="/nuetel_about.jpg"
+        <img loading="lazy" decoding="async"
+          src="/nuetel_about.webp"
           alt=""
           aria-hidden
           style={{
@@ -5806,7 +5806,7 @@ function NuetelMobile({
             {p.text}
           </MBody>
         ))}
-        <img
+        <img loading="lazy" decoding="async"
           src="/nuetel_logo.svg"
           alt=""
           aria-hidden
@@ -5882,7 +5882,7 @@ function NuetelMobile({
           }}
         >
           {ADV_BANNERS.map((b) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={b.src}
               src={b.src}
               alt=""
@@ -6606,7 +6606,7 @@ function AdditionalMobile({
             <MShot src="/gza/logo_card.webp" ar={413.38 / 383.4} />
           </div>
           <div style={{ flex: "1 1 0", minWidth: 0 }}>
-            <MShot src="/icon_render_1.jpg" ar={418.29 / 383.08} />
+            <MShot src="/icon_render_1.webp" ar={418.29 / 383.08} />
           </div>
         </div>
         {/* иконки приложения в ряд */}
@@ -6619,7 +6619,7 @@ function AdditionalMobile({
           }}
         >
           {Array.from({ length: 8 }, (_, i) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={i}
               src={`/gza/icon_${i + 1}.svg`}
               alt=""
@@ -6813,7 +6813,7 @@ export default function ProjectView({
   title,
   tagline,
   subtitle,
-  hero = "/nuetel_hero.jpg",
+  hero = "/nuetel_hero.webp",
   titleSize = 96,
   heroInk = "#fff",
   heroRuleFull = false,
@@ -7272,7 +7272,7 @@ export default function ProjectView({
                   {p.text}
                 </FadeUp>
               ))}
-              <img
+              <img loading="lazy" decoding="async"
                 src="/nuetel_phone.webp"
                 alt=""
                 aria-hidden
@@ -7426,7 +7426,7 @@ export default function ProjectView({
                   оставляем: на её месте стоит кадр той же модели в той же
                   позиции. Фон кадра — та же заливка LIGHT, стыка не видно. */}
               {touchDevice && (
-                <img
+                <img loading="lazy" decoding="async"
                   src="/sketch/keyboard_still.webp"
                   alt=""
                   aria-hidden
@@ -7709,8 +7709,8 @@ export default function ProjectView({
               overflow: "hidden",
             }}
           >
-            <motion.img
-              src="/nuetel_about.jpg"
+            <motion.img loading="lazy" decoding="async"
+              src="/nuetel_about.webp"
               alt=""
               aria-hidden
               style={{
@@ -7826,7 +7826,7 @@ export default function ProjectView({
                   {p.text}
                 </FadeUp>
               ))}
-              <img
+              <img loading="lazy" decoding="async"
                 src="/nuetel_logo.svg"
                 alt="Nuetel"
                 style={{
@@ -7869,7 +7869,7 @@ export default function ProjectView({
                     }}
                   >
                     {col.map((shot) => (
-                      <img
+                      <img loading="lazy" decoding="async"
                         key={shot.src}
                         src={shot.src}
                         alt="Nuetel design system"
@@ -8057,7 +8057,7 @@ function LaptopSequence({
           }}
         >
           {LAPTOP_FRAMES.map((src, i) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={src}
               src={src}
               alt={i === LAPTOP_FRAMES.length - 1 ? "Nuetel website" : ""}
@@ -8103,7 +8103,7 @@ function AdvMaterials() {
         }}
       >
         {ADV_BANNERS.map((b, i) => (
-          <motion.img
+          <motion.img loading="lazy" decoding="async"
             key={b.src}
             src={b.src}
             alt=""
@@ -8243,7 +8243,7 @@ function AdvCampaign() {
                 transform: "translateY(-50%)",
               }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/phones/nuetel_phone_1.webp"
                 alt=""
                 aria-hidden
@@ -8256,7 +8256,7 @@ function AdvCampaign() {
                 }}
               />
               {PHONE_FRAMES.map((src, i) => (
-                <motion.img
+                <motion.img loading="lazy" decoding="async"
                   key={src}
                   src={src}
                   alt=""
@@ -8293,7 +8293,7 @@ function FinalShot() {
       }}
     >
       <div style={{ marginLeft: cq(240), width: cq(1440) }}>
-        <img
+        <img loading="lazy" decoding="async"
           src={FINAL_SHOT_IMG.src}
           alt=""
           aria-hidden
@@ -8349,7 +8349,7 @@ function FinalShot() {
           }}
         >
           {SKETCH_SHOTS.map((s) => (
-            <img
+            <img loading="lazy" decoding="async"
               key={s.src}
               src={s.src}
               alt=""

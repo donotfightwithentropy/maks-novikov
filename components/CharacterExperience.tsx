@@ -215,7 +215,7 @@ const RAIL_VH = HOLD_BEFORE + RISE_VH + HOLD_AFTER;
 const RISE_START = HOLD_BEFORE / RAIL_VH;
 const RISE_END = (HOLD_BEFORE + RISE_VH) / RAIL_VH;
 
-const POSTER_SRC = "/character-poster.jpg";
+const POSTER_SRC = "/character-poster.webp";
 
 /** Максимальный поворот персонажа за курсором */
 const MAX_YAW = THREE.MathUtils.degToRad(40);
@@ -226,7 +226,7 @@ type Status = "loading" | "ready" | "fallback";
 function CharacterFrame() {
   return (
     <>
-      <img
+      <img loading="lazy" decoding="async"
         src="/char-art.svg"
         alt=""
         aria-hidden
@@ -249,7 +249,7 @@ function Scene3d({
   return (
     <div ref={hostRef} className="absolute inset-0 overflow-hidden">
       {status === "fallback" && (
-        <img
+        <img loading="lazy" decoding="async"
           src={POSTER_SRC}
           alt="3D-модель персонажа"
           className="absolute inset-0 m-auto h-[88%] w-auto object-contain"
@@ -798,7 +798,7 @@ export default function CharacterExperience() {
                   transformOrigin: "center center",
                 }}
               >
-                <img
+                <img loading="lazy" decoding="async"
                   src="/abilities-art.svg"
                   alt=""
                   aria-hidden

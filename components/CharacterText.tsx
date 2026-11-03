@@ -403,7 +403,7 @@ export function CharacterText() {
 
       {/* кадры аватара для способностей — ровно поверх обычного */}
       {AVATARS.map((a, i) => (
-        <motion.img
+        <motion.img loading="lazy" decoding="async"
           key={a.src}
           src={a.src}
           alt=""
@@ -720,7 +720,7 @@ function SkillsList() {
                   {t.label}
                 </span>
               </motion.div>
-              <motion.img
+              <motion.img loading="lazy" decoding="async"
                 src="/cat-pet.svg"
                 alt=""
                 aria-hidden

@@ -451,7 +451,7 @@ function Gallery({
       className="fixed inset-0 z-[140] flex items-center justify-center"
       style={{ background: "rgba(3,24,40,0.94)" }}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={images[index]}
         alt=""
         onClick={(e) => e.stopPropagation()}
@@ -682,7 +682,7 @@ function Fact({
             }}
           >
             <div style={{ position: "absolute", inset: 0, overflow: "hidden", clipPath: clip }}>
-              <img
+              <img loading="lazy" decoding="async"
                 src={photo.src}
                 alt=""
                 style={{
@@ -731,7 +731,7 @@ function Fact({
           </div>
         )}
         {logo && (
-          <img
+          <img loading="lazy" decoding="async"
             src={logo.src}
             alt=""
             aria-hidden
@@ -1112,7 +1112,7 @@ function FactMobile({ data }: { data: FactData }) {
           viewport={{ once: true, margin: "0px 0px -10% 0px" }}
           transition={{ duration: 1, ease: EASE_OUT }}
         >
-          <img
+          <img loading="lazy" decoding="async"
             src={photo.src}
             alt=""
             style={{
@@ -1127,7 +1127,7 @@ function FactMobile({ data }: { data: FactData }) {
 
       {logo && (
         <Reveal delay={0} inView style={{ marginTop: 18 }}>
-          <img
+          <img loading="lazy" decoding="async"
             src={logo.src}
             alt=""
             aria-hidden
@@ -1313,7 +1313,7 @@ export default function AboutView() {
                 }%) 0, 100% ${(PHOTO.notch / PHOTO.h) * 100}%, 100% 100%, 0 100%)`,
               }}
             >
-              <img
+              <img loading="lazy" decoding="async"
                 src="/about/me.webp"
                 alt="Maks during a trip to India"
                 style={{
@@ -1507,7 +1507,7 @@ export default function AboutView() {
           <div
             style={{ position: "absolute", inset: 0, clipPath: photoClip, overflow: "hidden" }}
           >
-            <motion.img
+            <motion.img loading="lazy" decoding="async"
               src="/about/me.webp"
               alt="Maks during a trip to India"
               style={{

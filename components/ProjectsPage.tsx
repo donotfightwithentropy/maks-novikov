@@ -73,7 +73,7 @@ function ProjectCard({
         aspectRatio: "1.6",
       }}
     >
-      <img
+      <img loading="lazy" decoding="async"
         src={project.src.startsWith("/") ? project.src : `/${project.src}`}
         alt=""
         aria-hidden

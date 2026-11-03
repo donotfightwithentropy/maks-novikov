@@ -75,13 +75,13 @@ export type Project = {
 
 export const PROJECTS: Project[] = [
   {
-    src: "/project_preview_1.jpg",
+    src: "/project_preview_1.webp",
     title: "Nuetel",
     tagline: "Building a telecom brand from scratch",
     brand: "NUETEL",
     desc: "Design system, company site and advertising content.",
     slug: "nuetel",
-    hero: "/nuetel_hero.jpg",
+    hero: "/nuetel_hero.webp",
     years: "2025 — 2026",
     kicker: "From Sketch\nto System",
     tokens: ["Brand Identity", "Web Design", "Art Direction"],
@@ -93,7 +93,7 @@ export const PROJECTS: Project[] = [
     brand: "Yandex Market",
     desc: "Designing at Marketplace Scale",
     slug: "yandex-market",
-    hero: "/yandex_hero.jpg",
+    hero: "/yandex_hero.webp",
     heroTitle: "Yandex\nMarket",
     heroInk: "#051C2E",
     years: "2021 — 2025",
@@ -120,7 +120,7 @@ export const PROJECTS: Project[] = [
     slug: "landings-brandzones",
     /* пока типовое оформление: шапка, hero и первый экран сняты
        со страницы Yandex Market, содержание поменяем позже */
-    hero: "/landings_hero.jpg",
+    hero: "/landings_hero.webp",
     heroTitle: "Landings &\nBrandzones",
     heroInk: "#fff",
     heroRuleFull: true,
@@ -138,7 +138,7 @@ export const PROJECTS: Project[] = [
     ],
     screens: Array.from(
       { length: 9 },
-      (_, i) => `/1440x900_screen_${i + 1}.jpg`,
+      (_, i) => `/1440x900_screen_${i + 1}.webp`,
     ),
     outro: {
       text: [
