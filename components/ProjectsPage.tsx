@@ -74,7 +74,11 @@ function ProjectCard({
       }}
     >
       <img loading="lazy" decoding="async"
-        src={project.src.startsWith("/") ? project.src : `/${project.src}`}
+        /* Путь берём как есть. Раньше тут дописывался ведущий слэш —
+           в данных он и так всегда стоит, а в артефакте сборка переводит
+           пути в относительные, и этот слэш возвращал их в корень сайта,
+           где файлов нет. Четыре превью отваливались именно из-за него. */
+        src={project.src}
         alt=""
         aria-hidden
         style={{

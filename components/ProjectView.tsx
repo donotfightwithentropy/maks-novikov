@@ -8007,6 +8007,50 @@ export default function ProjectView({
 /* ───────────────────────────── ноутбук с кадрами сайта ─────────────────── */
 
 /**
+ * Готовит кадры ноутбука: качает и ОБЯЗАТЕЛЬНО декодирует каждый.
+ *
+ * Одного присваивания src недостаточно. Файл к началу анимации давно
+ * скачан, но в растр он разворачивается только при первой отрисовке, и
+ * браузер успевает показать пустоту — отсюда мерцание ровно на первом
+ * проходе: на втором кадры уже декодированы и всё идёт гладко.
+ * `image.decode()` дожидается именно готовности к рисованию.
+ */
+function useLaptopFrames(enabled: boolean) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (!enabled) return;
+    let cancelled = false;
+
+    void (async () => {
+      const results = await Promise.allSettled(
+        LAPTOP_FRAMES.map(async (src) => {
+          const image = new Image();
+          image.decoding = "async";
+          image.src = src;
+          await image.decode();
+        }),
+      );
+      if (cancelled) return;
+      const broken = results.filter((r) => r.status === "rejected").length;
+      if (broken) {
+        /* не прячем проблему: анимацию не включаем, остаётся подложка */
+        console.error(
+          `Кадры ноутбука: не удалось подготовить ${broken} из ${LAPTOP_FRAMES.length}`,
+        );
+      }
+      setReady(broken === 0);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [enabled]);
+
+  return ready;
+}
+
+/**
  * Липкий ноутбук: по прокрутке перелистываем кадры сайта,
  * параллельно гасим блок статистики под ним (fadeRef).
  */
@@ -8021,6 +8065,12 @@ function LaptopSequence({
     offset: ["start start", "end end"],
   });
   const [frame, setFrame] = useState(0);
+  /* начинаем готовить кадры, когда до секции остаётся примерно экран */
+  const prepare = useInView(sectionRef, {
+    once: true,
+    margin: "100% 0px 100% 0px",
+  });
+  const ready = useLaptopFrames(prepare);
 
   useEffect(() => {
     const last = LAPTOP_FRAMES.length - 1;
@@ -8056,24 +8106,47 @@ function LaptopSequence({
             aspectRatio: `${LAPTOP_AR}`,
           }}
         >
-          {LAPTOP_FRAMES.map((src, i) => (
-            <img loading="lazy" decoding="async"
-              key={src}
-              src={src}
-              alt={i === LAPTOP_FRAMES.length - 1 ? "Nuetel website" : ""}
-              aria-hidden={i !== LAPTOP_FRAMES.length - 1}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                objectPosition: "bottom center",
-                maxWidth: "none",
-                opacity: i === frame ? 1 : 0,
-              }}
-            />
-          ))}
+          {/* Подложка: закрытый ноутбук. Стоит, пока кадры не готовы,
+              поэтому пустого места на экране не бывает никогда. Кадры
+              с прозрачностью, так что после готовности подложку гасим,
+              иначе она просвечивала бы сквозь следующие. */}
+          <img
+            src={LAPTOP_FRAMES[0]}
+            alt="Nuetel website"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              objectPosition: "bottom center",
+              maxWidth: "none",
+              opacity: ready ? 0 : 1,
+            }}
+          />
+          {/* Стопку монтируем только когда все кадры декодированы:
+              тогда переключение opacity рисует мгновенно. */}
+          {ready &&
+            LAPTOP_FRAMES.map((src, i) => (
+              <img
+                /* кадры уже декодированы — рисуем синхронно, без задержки */
+                decoding="sync"
+                key={src}
+                src={src}
+                alt=""
+                aria-hidden
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  objectPosition: "bottom center",
+                  maxWidth: "none",
+                  opacity: i === frame ? 1 : 0,
+                }}
+              />
+            ))}
         </div>
       </div>
     </section>
